@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "type": "module",
+ 
   "description": "My webpack project",
   "private": true,
   "scripts": {
