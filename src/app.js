@@ -25,31 +25,23 @@ export default () => {
 
   const watchedState = onChage(state, (path, value) => {
     const pFeedBack = document.getElementById('feedback');
+    pFeedBack.classList.replace('text-success', 'text-danger');
     switch (path) {
       case 'request.errors':
         if (value[0] == 'url must be a valid URL') {
-          pFeedBack.classList.remove('text-success');
-          pFeedBack.classList.add('text-danger');
           pFeedBack.textContent = 'Ссылка должена быть валидным URL';        
         } else if (value[0] == 'url is invalid') {
-          pFeedBack.classList.remove('text-success');
-          pFeedBack.classList.add('text-danger');
           pFeedBack.textContent = 'RSS уже существует';
         }  
         break;
       case 'request.url':
-        pFeedBack.classList.remove('text-success');
-        pFeedBack.classList.add('text-danger');
         pFeedBack.textContent = '';
         break;
       case 'response.status':
         if (value === 'received') {
-          pFeedBack.classList.remove('text-danger');
-          pFeedBack.classList.add('text-success');
+          pFeedBack.classList.replace('text-danger', 'text-success');
           pFeedBack.textContent = 'RSS успешно загружен';
         } else {
-          pFeedBack.classList.remove('text-success');
-          pFeedBack.classList.add('text-danger');
           pFeedBack.textContent = 'Ресурс не содержит валидный RSS';
         }
         render(state);
