@@ -13,7 +13,6 @@ export default (state) => {
           clearInterval(state.feeds[id].timer);
           delete feeds[e.target.dataset.id];
           state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
-          console.log(55, state.repliesURLs);
           render(state);
           break;
         case 'open':

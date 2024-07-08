@@ -57,7 +57,6 @@ export default (state) => {
       divLi.append(liTitle, liDescription);
       liCard.append(divLi, buttonClouseFeed);
       ulCard.append(liCard);
-
       const items = Object.entries(content.items);
       items.forEach((item) => {
         const idt = item[0];
