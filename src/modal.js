@@ -1,3 +1,5 @@
+import i18next from "i18next";
+
 export default  () => {
   const divModal = document.createElement('div');
   divModal.classList.add('modal', 'fade');
@@ -29,20 +31,22 @@ export default  () => {
 
   const divFooter = document.createElement('div');
   divFooter.classList.add('modal-footer');
+  
   const buttonClose = document.createElement('button');
   buttonClose.type = 'button';
   buttonClose.classList.add('btn', 'btn-outline-secondary');
   buttonClose.setAttribute('data-bs-dismiss', 'modal');
-  buttonClose.textContent = 'Закрыть';
+  buttonClose.textContent = i18next.t('close');
+
   const buttonRedirect = document.createElement('button');
   buttonRedirect.type = 'button';
   buttonRedirect.classList.add('btn', 'btn-outline-primary');
   buttonRedirect.id = 'redirect';
-  
   const a = document.createElement('a');
-  a.textContent = 'Читать статью';
+  a.textContent = i18next.t('read');
   a.setAttribute('target', '_blank');
   buttonRedirect.appendChild(a);
+
   divFooter.append(buttonClose, buttonRedirect);
 
   const divContent = document.createElement('div');

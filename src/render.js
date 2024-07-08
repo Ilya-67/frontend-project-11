@@ -1,14 +1,22 @@
+import i18next from "i18next";
 import appFeeds from "./appFeeds";
 
 export default (state) => {
   const { feeds, repliesURLs } = state;
   const section = document.getElementById('container-xxl');
+  const pFeedBack = document.getElementById('feedback');
+  if (state.feedBackMessage === 'loaded') {
+    pFeedBack.classList.replace('text-danger', 'text-success');
+  } else {
+    pFeedBack.classList.replace('text-success', 'text-danger');
+  }
+  pFeedBack.textContent = i18next.t(`${state.feedBackMessage}`);
   if (repliesURLs.length > 0) {
     const divContainer = document.createElement('div');
     divContainer.classList.add('row');
     const cardTitle = document.createElement('h2');
     cardTitle.classList.add('card-title', 'h4');
-    cardTitle.textContent = 'Фиды';
+    cardTitle.textContent = i18next.t('feeds');
     const cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
     cardBody.appendChild(cardTitle);
@@ -20,7 +28,7 @@ export default (state) => {
     const divCardPosts = divCard.cloneNode(false);
     const cardBodyPosts = cardBody.cloneNode(false);
     const cardTitlePosts = cardTitle.cloneNode(false);
-    cardTitlePosts.textContent = 'Посты';
+    cardTitlePosts.textContent = i18next.t('posts');
     const ulCardPosts = document.createElement('ul');
     ulCardPosts.classList.add('list-group', 'border-0', 'rounded-0');
     cardBodyPosts.append(cardTitlePosts);
@@ -44,7 +52,7 @@ export default (state) => {
       buttonClouseFeed.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
       buttonClouseFeed.dataset.id = id;
       buttonClouseFeed.dataset.action = 'delete';
-      buttonClouseFeed.textContent = 'Удалить ленту';
+      buttonClouseFeed.textContent = i18next.t('delete');
       const divLi = document.createElement('div');
       divLi.append(liTitle, liDescription);
       liCard.append(divLi, buttonClouseFeed);
@@ -60,7 +68,7 @@ export default (state) => {
         );
         ulCardPosts.append(liPost);
         const aPost = document.createElement('a');
-        aPost.classList.add('fw-bold');
+        aPost.classList.add('fw-bold', 'w-75');
         aPost.target = '_blank';
         aPost.textContent = title;
         aPost.href = link;
@@ -70,7 +78,7 @@ export default (state) => {
         buttonOpen.dataset.bsToggle = 'modal';
         buttonOpen.dataset.bsTarget = '#modal';
         buttonOpen.dataset.action = 'open';
-        buttonOpen.textContent = 'Посмотреть';
+        buttonOpen.textContent = i18next.t('open');
         buttonOpen.dataset.id = idt;
         liPost.append(aPost, buttonOpen);
       });
