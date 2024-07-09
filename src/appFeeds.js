@@ -1,3 +1,4 @@
+import { Alert } from "bootstrap";
 import render from "./render";
 
 export default (state) => {
@@ -18,13 +19,14 @@ export default (state) => {
         case 'open':
           const idt = e.target.dataset.id;
           const idts = idt.split('.').map(i => +i);
-          const { post } = state.feeds[idts[0]].content.items.filter((i) => i[0] === idts);
+          state.feeds[idts[0]].content.items.filter((i) => i.ids === idt)[0].post.title.class = 'fw-normal';
+          const [{ post }] = state.feeds[idts[0]].content.items.filter((i) => i.ids === idt);
           const { title, description, creator, link } = post;
           const modalHeader = document.getElementById('modalHeader');
           const modalBody = document.getElementById('modalBody');
           const modalRedirect = document.getElementById('redirect');
           modalRedirect.firstChild.href = link;
-          modalHeader.textContent = title;
+          modalHeader.textContent = title.text;
           modalBody.innerHTML = '';
           const aDescription = document.createElement('a');
           const pCreator = document.createElement('p');

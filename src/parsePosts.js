@@ -11,7 +11,9 @@ export default (responseDocs, state, url, id) => {
       const idt = `${id}.${new Date(pubDate).getTime()}`;
       const itPost = {};
       const titlePost = item.querySelector('title').textContent ?? item.querySelector('title').firstChild.textContent;
-      itPost.title = titlePost;
+      itPost.title = {};
+      itPost.title.text = titlePost;
+      itPost.title.class = 'fw-bold';
       const descriptionPost =  item.querySelector('description').textContent ?? item.querySelector('description').firstChild.textContent;
       itPost.description = descriptionPost;
       itPost.pubDate = pubDate;
@@ -26,5 +28,5 @@ export default (responseDocs, state, url, id) => {
     }  
   });
   clearTimeout(state.feeds[id].timer);
-  state.feeds[id].timer = setTimeout(refresh, 10000, state, url, id);
+  state.feeds[id].timer = setTimeout(refresh, 5000, state, url, id);
 };

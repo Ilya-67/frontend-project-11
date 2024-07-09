@@ -66,9 +66,9 @@ export default (state) => {
         );
         ulCardPosts.append(liPost);
         const aPost = document.createElement('a');
-        aPost.classList.add('fw-bold', 'w-75');
+        aPost.classList.add(title.class, 'w-75');
         aPost.target = '_blank';
-        aPost.textContent = title;
+        aPost.textContent = title.text;
         aPost.href = link;
         aPost.dataset.id = ids;
         const buttonOpen = buttonClouseFeed.cloneNode(false);
