@@ -1,7 +1,7 @@
 import parsePosts from "./parsePosts";
 import render from "./render";
 
-export default (state, url, id) => {
+const refresh = (state, url, id) => {
   fetch(`https://allorigins.hexlet.app/get?url=${url}`, { cache: "no-cache" })
   .then(response => {
     if (response.ok) return response.json();
@@ -9,7 +9,8 @@ export default (state, url, id) => {
   })
   .then(data => {
     const responseDocs = new DOMParser().parseFromString(data.contents, "text/xml");
-    parsePosts(responseDocs, state, id);
+    parsePosts(responseDocs, state, url, id);
   });  
-  render(state);
+  render(state);  
 };
+export default refresh;

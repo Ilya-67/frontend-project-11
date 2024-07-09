@@ -10,7 +10,7 @@ export default (state) => {
         case 'delete':
         const id = e.target.dataset.id;
         const { url } = feeds[id];
-          clearInterval(state.feeds[id].timer);
+          clearTimeout(state.feeds[id].timer);
           delete feeds[e.target.dataset.id];
           state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
           render(state);
@@ -18,7 +18,8 @@ export default (state) => {
         case 'open':
           const idt = e.target.dataset.id;
           const idts = idt.split('.').map(i => +i);
-          const { title, description, creator, link } = state.feeds[idts[0]].content.items[idt];
+          const { post } = state.feeds[idts[0]].content.items.filter((i) => i[0] === idts);
+          const { title, description, creator, link } = post;
           const modalHeader = document.getElementById('modalHeader');
           const modalBody = document.getElementById('modalBody');
           const modalRedirect = document.getElementById('redirect');

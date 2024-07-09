@@ -14,6 +14,7 @@ const handleSwitchLanguage = (state) => (evt) => {
 const app = (state) => {
   document.body.innerHTML = '';
   document.body.append(renderModal(), renderComponent(state));
+  
   const watchedState = onChage(state, (path, value, previousValue = 'en') => {
     switch (path) {
       case 'lng': 

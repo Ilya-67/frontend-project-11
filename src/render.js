@@ -57,10 +57,9 @@ export default (state) => {
       divLi.append(liTitle, liDescription);
       liCard.append(divLi, buttonClouseFeed);
       ulCard.append(liCard);
-      const items = Object.entries(content.items);
-      items.forEach((item) => {
-        const idt = item[0];
-        const { link, title } = item[1];
+      const items = content.items;
+      items.forEach(({ ids, post }) => {
+        const { link, title } = post;
         const liPost = document.createElement('li');
         liPost.classList.add('list-group-item', 'd-flex', 'justify-content-between',
           'align-items-start', 'border-0', 'border-end-0'
@@ -71,14 +70,14 @@ export default (state) => {
         aPost.target = '_blank';
         aPost.textContent = title;
         aPost.href = link;
-        aPost.dataset.id = idt;
+        aPost.dataset.id = ids;
         const buttonOpen = buttonClouseFeed.cloneNode(false);
         buttonOpen.classList.replace('btn-outline-secondary', 'btn-outline-primary');
         buttonOpen.dataset.bsToggle = 'modal';
         buttonOpen.dataset.bsTarget = '#modal';
         buttonOpen.dataset.action = 'open';
         buttonOpen.textContent = i18next.t('open');
-        buttonOpen.dataset.id = idt;
+        buttonOpen.dataset.id = ids;
         liPost.append(aPost, buttonOpen);
       });
     });

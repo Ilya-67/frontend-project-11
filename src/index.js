@@ -26,7 +26,7 @@ const runApp = () => {
     lng: 'en',
     resources: resources,
   });
-
+  
   app(state);
 };
 
