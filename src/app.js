@@ -11,11 +11,13 @@ const handleSwitchLanguage = (state) => (evt) => {
   state.lng = lng;
 };
 
+let watchedState;
+
 const app = (state) => {
   document.body.innerHTML = '';
   document.body.append(renderModal(), renderComponent(state));
   
-  const watchedState = onChage(state, (path, value, previousValue = 'en') => {
+  watchedState = onChage(state, (path, value) => {
     switch (path) {
       case 'lng': 
         i18next.changeLanguage(value).then(() => {
@@ -28,6 +30,8 @@ const app = (state) => {
           state.feedBackMessage = 'notValidURL';     
         } else if (value[0] == 'url is invalid') {
           state.feedBackMessage = 'rendered';
+        } else if (value === 'network error') {
+          state.feedBackMessage = 'netError';
         }
         break;
       case 'request.url':
@@ -75,7 +79,7 @@ const app = (state) => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const { url } = state.request;
-    fetch(`https://allorigins.hexlet.app/get?url=${url}`)
+    fetch(`https://allorigins.hexlet.app/get?url=${url}`, { cache: "no-cache" })
     .then(response => {
       if (response.ok) return response.json();
       throw new Error('Network response was not ok.');
@@ -90,12 +94,14 @@ const app = (state) => {
         parse(responseDocs, state, url, id);
         watchedState.response.status = 'received';
       } else {
-        watchedState.response.status = 'error';
+        watchedState.response.status = 'no rss';
       }
     })
-    .catch(e => watchedState.response.status = 'error');
+    .catch(e => watchedState.request.errors = 'network error');
     e.target.reset();
   });
+  
 };
 
+export { watchedState };
 export default app;

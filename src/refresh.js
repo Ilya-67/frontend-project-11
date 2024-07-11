@@ -1,3 +1,4 @@
+import { watchedState } from "./app";
 import parsePosts from "./parsePosts";
 import render from "./render";
 
@@ -10,7 +11,8 @@ const refresh = (state, url, id) => {
   .then(data => {
     const responseDocs = new DOMParser().parseFromString(data.contents, "text/xml");
     parsePosts(responseDocs, state, url, id);
-  });  
+  })
+  .catch(e => watchedState.request.errors = 'network error');  
   render(state);  
 };
 export default refresh;

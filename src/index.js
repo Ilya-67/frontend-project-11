@@ -6,7 +6,7 @@ import resources from './locales/resources.js';
 
 const runApp = () => {
   const state = {
-    lng: 'en',
+    lng: 'ru',
     count: 0,
     repliesURLs: [],
     feedBackMessage: '',
@@ -23,7 +23,7 @@ const runApp = () => {
   };
   
   i18next.init({
-    lng: 'en',
+    lng: 'ru',
     resources: resources,
   });
   

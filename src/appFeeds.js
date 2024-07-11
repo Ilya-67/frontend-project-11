@@ -1,4 +1,3 @@
-import { Alert } from "bootstrap";
 import render from "./render";
 
 export default (state) => {
@@ -14,12 +13,13 @@ export default (state) => {
           clearTimeout(state.feeds[id].timer);
           delete feeds[e.target.dataset.id];
           state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
+          state.feedBackMessage = 'deleted';
           render(state);
           break;
         case 'open':
           const idt = e.target.dataset.id;
           const idts = idt.split('.').map(i => +i);
-          state.feeds[idts[0]].content.items.filter((i) => i.ids === idt)[0].post.title.class = 'fw-normal';
+          state.feeds[idts[0]].content.items.filter((i) => i.ids === idt)[0].post.title.class = 'fw-normal, link-secondary';
           const [{ post }] = state.feeds[idts[0]].content.items.filter((i) => i.ids === idt);
           const { title, description, creator, link } = post;
           const modalHeader = document.getElementById('modalHeader');
@@ -33,6 +33,8 @@ export default (state) => {
           aDescription.innerHTML = description;
           pCreator.textContent = creator;
           modalBody.append(aDescription, pCreator);
+          break;
+        default: 
           break;
       }
     });

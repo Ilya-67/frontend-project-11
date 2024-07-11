@@ -66,7 +66,7 @@ export default (state) => {
         );
         ulCardPosts.append(liPost);
         const aPost = document.createElement('a');
-        aPost.classList.add(title.class, 'w-75');
+        aPost.className = `${title.class} w-75`;
         aPost.target = '_blank';
         aPost.textContent = title.text;
         aPost.href = link;
