@@ -1,18 +1,23 @@
-import { watchedState } from "./app";
-import parsePosts from "./parsePosts";
+import onChage from 'on-change';
 import render from "./render";
+import request from './request';
 
 const refresh = (state, url, id) => {
-  fetch(`https://allorigins.hexlet.app/get?url=${url}`, { cache: "no-cache" })
-  .then(response => {
-    if (response.ok) return response.json();
-    throw new Error('Network response was not ok.');
-  })
-  .then(data => {
-    const responseDocs = new DOMParser().parseFromString(data.contents, "text/xml");
-    parsePosts(responseDocs, state, url, id);
-  })
-  .catch(e => watchedState.request.errors = 'network error');  
-  render(state);  
+  const watchedState = onChage(state, (path, value) => {
+    switch (path) {
+      case 'request.errors':
+        if (value === 'network error') state.feedBackMessage = 'netError';
+        break;
+      case 'response.status':
+        if (value === 'received') state.feedBackMessage = 'viewing';
+        break;
+      default:
+        break;
+    }
+    render(state);
+  });
+  request(state, url, id, watchedState);
+  watchedState.response.status = 'viewing';
 };
+
 export default refresh;

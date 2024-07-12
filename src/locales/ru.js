@@ -18,5 +18,6 @@ export default {
     rendered: 'RSS уже существует',
     rss: 'RSS агрегатор',    
     submit: 'Добавить',
+    viewing: 'Просмотр'
   }
 };

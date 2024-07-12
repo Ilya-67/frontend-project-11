@@ -5,7 +5,7 @@ export default (state) => {
   const { feeds, repliesURLs } = state;
   const section = document.getElementById('container-xxl');
   const pFeedBack = document.getElementById('feedback');
-  if (state.feedBackMessage === 'loaded') {
+  if (state.feedBackMessage === 'loaded' || state.feedBackMessage === 'viewing') {
     pFeedBack.classList.replace('text-danger', 'text-success');
   } else {
     pFeedBack.classList.replace('text-success', 'text-danger');

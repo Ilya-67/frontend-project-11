@@ -14,6 +14,7 @@ export default (state) => {
           delete feeds[e.target.dataset.id];
           state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
           state.feedBackMessage = 'deleted';
+          state.response.status = '';
           render(state);
           break;
         case 'open':

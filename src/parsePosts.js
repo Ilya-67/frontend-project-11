@@ -1,13 +1,13 @@
 import refresh from "./refresh";
 
-export default (responseDocs, state, url, id) => {
+export default (state, url, id, responseDocs) => {
   const itemsDoc = responseDocs.querySelectorAll('item');
   const controlTime = state.feeds[id].lastTime;
   itemsDoc.forEach((item, index) => {
     const items = state.feeds[id].content.items;
     const pubDate = item.querySelector('pubDate').textContent;
     if (index === 0) state.feeds[id].lastTime = pubDate;
-    if (pubDate > controlTime) {
+    if (new Date(pubDate) > new Date(controlTime)) {
       const idt = `${id}.${new Date(pubDate).getTime()}`;
       const itPost = {};
       const titlePost = item.querySelector('title').textContent ?? item.querySelector('title').firstChild.textContent;
@@ -23,7 +23,7 @@ export default (responseDocs, state, url, id) => {
       const creator = datacreator !== null ? datacreator.firstChild.textContent : datacreator;
       itPost.creator = creator;
       const result = {ids: idt, post: itPost};
-      state.feeds[id].content.items = controlTime === '' ? [...items, result] : [result, ...items ];
+      state.feeds[id].content.items = controlTime === 0 ? [...items, result] : [result, ...items ];
       state.feeds[id].content.items = state.feeds[id].content.items.filter((i, index) => index < 10);
     }  
   });

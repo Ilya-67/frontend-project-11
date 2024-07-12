@@ -4,20 +4,18 @@ import * as yup from 'yup';
 import render from './render.js';
 import renderModal from './modal.js';
 import renderComponent from './componet.js';
-import parse from './parse.js';
+import request from "./request.js";
 
 const handleSwitchLanguage = (state) => (evt) => {
   const { lng } = evt.target.dataset;
   state.lng = lng;
 };
 
-let watchedState;
-
 const app = (state) => {
   document.body.innerHTML = '';
   document.body.append(renderModal(), renderComponent(state));
-  
-  watchedState = onChage(state, (path, value) => {
+
+  const watchedState = onChage(state, (path, value) => {
     switch (path) {
       case 'lng': 
         i18next.changeLanguage(value).then(() => {
@@ -30,7 +28,7 @@ const app = (state) => {
           state.feedBackMessage = 'notValidURL';     
         } else if (value[0] == 'url is invalid') {
           state.feedBackMessage = 'rendered';
-        } else if (value === 'network error') {
+        } else if (value == 'Failed to fetch') {
           state.feedBackMessage = 'netError';
         }
         break;
@@ -79,29 +77,12 @@ const app = (state) => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const { url } = state.request;
-    fetch(`https://allorigins.hexlet.app/get?url=${url}`, { cache: "no-cache" })
-    .then(response => {
-      if (response.ok) return response.json();
-      throw new Error('Network response was not ok.');
-    })
-    .then(data => {
-      if (data.contents.slice(2, 5)=== 'xml') {
-        const responseDocs = new DOMParser().parseFromString(data.contents, "text/xml");
-        const { count } = state;
-        const id = count + 1;
-        state.count = id;
-        state.repliesURLs.push({ id: id, urlFeed: url });
-        parse(responseDocs, state, url, id);
-        watchedState.response.status = 'received';
-      } else {
-        watchedState.response.status = 'no rss';
-      }
-    })
-    .catch(e => watchedState.request.errors = 'network error');
+    const { count } = state;
+    const id = count + 1;
+    state.count = id;
+    request(state, url, id, watchedState, true);
     e.target.reset();
   });
-  
 };
 
-export { watchedState };
 export default app;

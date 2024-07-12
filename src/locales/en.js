@@ -18,5 +18,6 @@ export default {
     rendered: 'RSS already exists',
     rss: 'RSS reader',
     submit: 'Add',
+    viewing: 'Viewing'
   }
 };

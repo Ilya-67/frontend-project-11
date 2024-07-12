@@ -18,5 +18,6 @@ export default {
     rendered: 'RSS již existuje',
     rss: 'RSS čtečka',
     submit: 'Přidat',
+    viewing: 'Prohlížení'
   }
 };
