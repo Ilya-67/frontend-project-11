@@ -3,6 +3,7 @@ import 'bootstrap';
 import app from './app.js';
 import i18next from 'i18next';
 import resources from './locales/resources.js';
+import watchedState from './watcher.js';
 
 const runApp = () => {
   const state = {
@@ -21,13 +22,12 @@ const runApp = () => {
       errors: [],
     },
   };
-  
+
   i18next.init({
     lng: 'ru',
     resources: resources,
   });
-  
-  app(state);
+  app(state, watchedState(state));
 };
 
 runApp();

@@ -1,7 +1,4 @@
-import i18next from "i18next";
-import onChage from 'on-change';
 import * as yup from 'yup';
-import render from './render.js';
 import renderModal from './modal.js';
 import renderComponent from './componet.js';
 import request from "./request.js";
@@ -11,39 +8,13 @@ const handleSwitchLanguage = (state) => (evt) => {
   state.lng = lng;
 };
 
-const app = (state) => {
+const app = (state, watchedState) => {
   document.body.innerHTML = '';
   document.body.append(renderModal(), renderComponent(state));
 
-  const watchedState = onChage(state, (path, value) => {
-    switch (path) {
-      case 'lng': 
-        i18next.changeLanguage(value).then(() => {
-          app(state);
-          render(state);
-        });
-        break;
-      case 'request.errors':
-        if (value[0] == 'url must be a valid URL') {
-          state.feedBackMessage = 'notValidURL';     
-        } else if (value[0] == 'url is invalid') {
-          state.feedBackMessage = 'rendered';
-        } else if (value == 'Failed to fetch') {
-          state.feedBackMessage = 'netError';
-        }
-        break;
-      case 'request.url':
-        state.feedBackMessage = '';
-        break;
-      case 'response.status':
-        state.feedBackMessage = value === 'received' ? 'loaded' : 'notContain';
-    }
-    render(state);
-  });
-    
   const radioChecks = document.querySelectorAll('.lng');
   radioChecks.forEach((i) => {
-    i.addEventListener('click', handleSwitchLanguage(watchedState))
+    i.addEventListener('click', handleSwitchLanguage(watchedState));
   });
 
   const input = document.getElementById('url-input');

@@ -1,7 +1,5 @@
-import en from './en.js';
-import ru from './ru.js';
-import cz from './cz.js';
+import translation from "./translation";
 
-const resources = { en, ru, cz };
+const { en, cz, ru } = translation;
 
-export default resources;
+export default { en, cz, ru };

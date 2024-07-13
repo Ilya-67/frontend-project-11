@@ -8,7 +8,7 @@
   <li><p>Stack: JavaScript, HTML5, CSS3, Node.js, Github, Webpack, Bootstrap, Yup, i18next, on-change.</p></li>
   <li><p>Skills acquired:</p></li>
     <ul>
-      <li><a>- developing an application using the MVC design pattern</a></li>
+      <li><a>developing an application using the MVC design pattern</a></li>
       <li><a>working with DOM API</a></li>
       <li><a>form validation (yup)</a></li>
       <li><a>internationalization of interface texts</a></li>
