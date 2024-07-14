@@ -1,11 +1,11 @@
 import parsePosts from "./parsePosts";
 import parse from "./parse";
 
-export default (state, url, id, watchedState, newfeed = false) => {
+export default (state, id, watchedState, newfeed = false) => {
+  const { url } = state.request;
   fetch(`https://allorigins.hexlet.app/get?url=${url}`, { cache: "no-cache" })
   .then(response => {
     if (response.ok) return response.json();
-    throw new Error();
   })
   .then(data => {
     if (data.contents.slice(2, 5)=== 'xml') {  

@@ -9,7 +9,6 @@ export default {
       feeds: 'Zdroje',
       loaded: 'RSS úspěšně nahráno',
       motto : 'Začněte číst RSS ještě dnes! Je to snadné, je to krásné.',
-      notEmpty: 'Nesmí být prázdné',
       open: 'Dívej se',
       posts: 'Příspěvky',
       read: 'Přečtěte si článek',
@@ -19,6 +18,7 @@ export default {
       "Cannot read properties of null (reading 'slice')": 'Neplatná adresa',
       'Failed to fetch': 'Chyba sítě',
       'no rss': 'Zdroj neobsahuje platné RSS',
+      'not Empty': 'Nesmí být prázdné',
       'url is invalid': 'RSS již existuje',
       'url must be a valid URL': 'Odkaz musí být platná adresa URL',
     }
@@ -33,7 +33,6 @@ export default {
       feeds: 'Feeds',
       loaded: 'RSS uploaded successfully',
       motto : "Start reading RSS today! It's easy, it's beautiful.",
-      notEmpty: 'Must not be empty',
       open: 'Look',
       posts: 'Posts',
       read: 'Read article',
@@ -43,6 +42,7 @@ export default {
       "Cannot read properties of null (reading 'slice')": 'Invalid URL',
       'Failed to fetch': 'Network error occurred',
       'no rss': 'The resource does not contain valid RSS',
+      'not Empty': 'Must not be empty',
       'url is invalid': 'RSS already exists',
       'url must be a valid URL': 'The link must be a valid URL'
     }
@@ -57,7 +57,6 @@ export default {
       feeds: 'Фиды',
       loaded: 'RSS успешно загружен',
       motto : 'Начните читать RSS сегодня! Это легко, это красиво.',
-      noEmpty: 'Не должно быть пустым',
       open: 'Просмотр',
       posts: 'Посты',
       read: 'Читать полностью',
@@ -67,6 +66,7 @@ export default {
       "Cannot read properties of null (reading 'slice')": 'Недействительный адрес',
       'Failed to fetch':'Ошибка сети',
       'no rss': 'Ресурс не содержит валидный RSS',
+      'not Empty': 'Не должно быть пустым',
       'url is invalid': 'RSS уже существует',
       'url must be a valid URL': 'Ссылка должена быть валидным URL',
     }

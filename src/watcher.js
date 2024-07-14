@@ -16,7 +16,7 @@ const watchedState = (state) => onChange(state, (path, value) => {
       render(state);
       break;
     case 'request.url':
-      state.feedBackMessage = '';
+      state.feedBackMessage = 'loaded';
       render(state);
       break;
     case 'response.status':
