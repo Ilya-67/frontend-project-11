@@ -1,5 +1,5 @@
 export default {
-cz: {
+  cz: {
     translation: {
       close: 'Zavřít',
       delete: 'Smazat zdroj',
@@ -9,16 +9,18 @@ cz: {
       feeds: 'Zdroje',
       loaded: 'RSS úspěšně nahráno',
       motto : 'Začněte číst RSS ještě dnes! Je to snadné, je to krásné.',
-      netError: 'Chyba sítě',
-      notContain: 'Zdroj neobsahuje platné RSS',
-      notValidURL: 'Odkaz musí být platná adresa URL',
+      notEmpty: 'Nesmí být prázdné',
       open: 'Dívej se',
       posts: 'Příspěvky',
       read: 'Přečtěte si článek',
       ref: 'Ref RSS',
-      rendered: 'RSS již existuje',
       rss: 'RSS čtečka',
       submit: 'Přidat',
+      "Cannot read properties of null (reading 'slice')": 'Neplatná adresa',
+      'Failed to fetch': 'Chyba sítě',
+      'no rss': 'Zdroj neobsahuje platné RSS',
+      'url is invalid': 'RSS již existuje',
+      'url must be a valid URL': 'Odkaz musí být platná adresa URL',
     }
   },
   en: {
@@ -31,16 +33,18 @@ cz: {
       feeds: 'Feeds',
       loaded: 'RSS uploaded successfully',
       motto : "Start reading RSS today! It's easy, it's beautiful.",
-      netError: 'Network error occurred',
-      notContain: 'The resource does not contain valid RSS',
-      notValidURL: 'The link must be a valid URL',
+      notEmpty: 'Must not be empty',
       open: 'Look',
       posts: 'Posts',
       read: 'Read article',
       ref: 'Ref RSS',
-      rendered: 'RSS already exists',
       rss: 'RSS reader',
       submit: 'Add',
+      "Cannot read properties of null (reading 'slice')": 'Invalid URL',
+      'Failed to fetch': 'Network error occurred',
+      'no rss': 'The resource does not contain valid RSS',
+      'url is invalid': 'RSS already exists',
+      'url must be a valid URL': 'The link must be a valid URL'
     }
   },
   ru: {
@@ -53,16 +57,18 @@ cz: {
       feeds: 'Фиды',
       loaded: 'RSS успешно загружен',
       motto : 'Начните читать RSS сегодня! Это легко, это красиво.',
-      netError:'Ошибка сети',
-      notContain: 'Ресурс не содержит валидный RSS',
-      notValidURL: 'Ссылка должена быть валидным URL',  
+      noEmpty: 'Не должно быть пустым',
       open: 'Просмотр',
       posts: 'Посты',
       read: 'Читать полностью',
       ref: 'Ссылка RSS',
-      rendered: 'RSS уже существует',
       rss: 'RSS агрегатор',    
       submit: 'Добавить',
+      "Cannot read properties of null (reading 'slice')": 'Недействительный адрес',
+      'Failed to fetch':'Ошибка сети',
+      'no rss': 'Ресурс не содержит валидный RSS',
+      'url is invalid': 'RSS уже существует',
+      'url must be a valid URL': 'Ссылка должена быть валидным URL',
     }
   },
 };

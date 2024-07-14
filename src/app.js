@@ -22,14 +22,14 @@ const app = (state, watchedState) => {
     const currentUrl = err.target.value;
     schema.validate({ url: currentUrl }, { abortEarly: false })
     .then((value) => {
-      state.request.errors = [];
-      state.response.status = '';
+      state.request.status = true;
+      state.request.errors = '';
       watchedState.request.url = `${value.url}`;
     })
     .catch((e) => {
-      err.target.value = '';
-      watchedState.request.errors = [e.errors];
-      });
+      state.request.status = false;
+      watchedState.request.errors = e.message;
+    });
   });
 
   yup.addMethod(yup.string, "myValidator", function myValidator() {
@@ -41,17 +41,18 @@ const app = (state, watchedState) => {
   });
 
   const schema = yup.object().shape({
-    url: yup.string().url().required().myValidator(),
+    url: yup.string().url().required('notEmpty').myValidator()
   });
 
   const form = document.querySelector('form');
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const { url } = state.request;
-    const { count } = state;
-    const id = count + 1;
-    state.count = id;
-    request(state, url, id, watchedState, true);
+    if (state.request.status) {
+      const { url } = state.request;
+      const id = state.count + 1;
+      state.count = id;
+      request(state, url, id, watchedState, true);
+    }
     e.target.reset();
   });
 };

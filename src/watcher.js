@@ -12,21 +12,19 @@ const watchedState = (state) => onChange(state, (path, value) => {
       });
       break;
     case 'request.errors':
-      if (value[0] == 'url must be a valid URL') {
-        state.feedBackMessage = 'notValidURL';
-      } else if (value[0] == 'url is invalid') {
-        state.feedBackMessage = 'rendered';
-      } else if (value == 'Failed to fetch') {
-        state.feedBackMessage = 'netError';
-      }
+      state.feedBackMessage = value;
+      render(state);
       break;
     case 'request.url':
       state.feedBackMessage = '';
+      render(state);
       break;
     case 'response.status':
-      state.feedBackMessage = value === 'received' ? 'loaded' : 'notContain';
+      state.response.status = '';
+      state.feedBackMessage = 'loaded';
+      render(state);
+      break;
   }
-  render(state);
 });
 
 export default watchedState;

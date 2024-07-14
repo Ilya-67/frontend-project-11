@@ -1,5 +1,3 @@
-import refresh from "./refresh";
-
 export default (state, url, id, responseDocs) => {
   const itemsDoc = responseDocs.querySelectorAll('item');
   const controlTime = state.feeds[id].lastTime;
@@ -24,9 +22,7 @@ export default (state, url, id, responseDocs) => {
       itPost.creator = creator;
       const result = {ids: idt, post: itPost};
       state.feeds[id].content.items = controlTime === 0 ? [...items, result] : [result, ...items ];
-      state.feeds[id].content.items = state.feeds[id].content.items.filter((i, index) => index < 10);
+      state.feeds[id].content.items = state.feeds[id].content.items.filter((i, index) => index < 15);
     }  
   });
-  clearTimeout(state.feeds[id].timer);
-  state.feeds[id].timer = setTimeout(refresh, 5000, state, url, id);
 };

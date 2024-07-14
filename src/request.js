@@ -11,13 +11,13 @@ export default (state, url, id, watchedState, newfeed = false) => {
     if (data.contents.slice(2, 5)=== 'xml') {  
       return new DOMParser().parseFromString(data.contents, "text/xml");
     }
-    watchedState.response.status = 'no rss';
     throw new Error('no rss');
   })
   .then((value) => {
     if (newfeed) parse(state, url, id, value);
     parsePosts(state, url, id, value);
+    state.request.errors = '';
     watchedState.response.status = 'received';
   })
-  .catch(e => watchedState.request.errors = e.message);
+  .catch(e => {console.log('request23', e); watchedState.request.errors = e.message;});
 };
