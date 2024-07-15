@@ -3,10 +3,10 @@ import parse from "./parse";
 
 export default (state, id, watchedState, newfeed = false) => {
   const { url } = state.request;
-  fetch(`https://allorigins.hexlet.app/get?url=${url}`, { cache: "no-cache" })
+  fetch(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}`, { cache: "no-cache" })
   .then(response => {
     if (response.ok) return response.json();
-    throw new Error(url);
+    throw new Error('Network response was not ok.');
   })
   .then(data => {
     if (data.contents.slice(2, 5)=== 'xml') {  
