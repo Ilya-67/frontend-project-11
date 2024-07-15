@@ -20,5 +20,5 @@ export default (state, id, watchedState, newfeed = false) => {
     state.request.errors = '';
     watchedState.response.status = 'received';
   })
-  .catch(e => watchedState.request.errors = e.message);
+  //.catch(e => watchedState.request.errors = e.message);
 };
