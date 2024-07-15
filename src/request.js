@@ -6,6 +6,7 @@ export default (state, id, watchedState, newfeed = false) => {
   fetch(`https://allorigins.hexlet.app/get?url=${url}`, { cache: "no-cache" })
   .then(response => {
     if (response.ok) return response.json();
+    throw new Error(url);
   })
   .then(data => {
     if (data.contents.slice(2, 5)=== 'xml') {  

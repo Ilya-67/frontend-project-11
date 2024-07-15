@@ -1,7 +1,6 @@
 import i18next from "i18next";
 
 export default (state) => {
-  //const rssUrl = 'https://ru.hexlet.io/lessons.rss';
   const main = document.createElement('main');
   main.classList.add('flex-grow-1');
   const container = document.createElement('section');
@@ -50,7 +49,7 @@ export default (state) => {
   button.ariaLabel = 'add';
   button.type = 'submit';
   button.textContent = i18next.t('submit');
-
+ 
   divButton.appendChild(button);
   divFormRow.append(divFormCol, divButton);
   form.append(divFormRow);
