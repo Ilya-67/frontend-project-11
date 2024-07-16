@@ -1,12 +1,22 @@
+import axios from "axios";
 import parsePosts from "./parsePosts";
 import parse from "./parse";
 
+const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
+  const requestURL = new URL(base);
+  const newURL = encodeURI(inputURL);
+  requestURL.searchParams.set('disableCache', true);
+  requestURL.searchParams.set('url', newURL);
+  return requestURL;
+};
+
 export default (state, id, watchedState, newfeed = false) => {
-  const { url } = state.request;
-  fetch(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}`, { cache: "no-cache" })
+  const { url } = newfeed ? state.request : state.feeds[id];
+  
+  axios.get(proxy(url))
   .then(response => {
-    if (response.ok) return response.json();
-    throw new Error('Network response was not ok.');
+    if (response.status === 200 ) return response.data;
+    throw new Error('Network error');
   })
   .then(data => {
     if (data.contents.slice(2, 5)=== 'xml') {  
@@ -16,9 +26,9 @@ export default (state, id, watchedState, newfeed = false) => {
   })
   .then((value) => {
     if (newfeed) parse(state, url, id, value);
-    parsePosts(state, url, id, value);
+    parsePosts(state, id, value);
     state.request.errors = '';
     watchedState.response.status = 'received';
   })
-  .catch(e => state.request.errors = e.message);
+  .catch(e => watchedState.request.errors = e.message);
 };

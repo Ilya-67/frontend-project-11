@@ -1,4 +1,4 @@
-export default (state, url, id, responseDocs) => {
+export default (state, id, responseDocs) => {
   const itemsDoc = responseDocs.querySelectorAll('item');
   const controlTime = state.feeds[id].lastTime;
   itemsDoc.forEach((item, index) => {
