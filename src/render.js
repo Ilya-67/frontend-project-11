@@ -66,7 +66,7 @@ export default (state) => {
         );
         ulCardPosts.append(liPost);
         const aPost = document.createElement('a');
-        aPost.className = `${title.class} w-75`;
+        aPost.className = `${title.class}`; // if you add class 'w-75', it looks better
         aPost.target = '_blank';
         aPost.textContent = title.text;
         aPost.href = link;
