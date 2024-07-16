@@ -1,4 +1,4 @@
-import translation from "./translation";
+import translation from './translation';
 
 const { en, cz, ru } = translation;
 

@@ -1,4 +1,4 @@
-import i18next from "i18next";
+import i18next from 'i18next';
 
 export default (state) => {
   const main = document.createElement('main');
@@ -7,16 +7,16 @@ export default (state) => {
   container.classList.add('container-fluid', 'bg-dark', 'p-5');
   const div = document.createElement('div');
   div.classList.add('row');
-  
+
   const divCol = document.createElement('div');
   divCol.classList.add('col-md-10', 'col-lg-8', 'mx-auto', 'text-white');
-  const nameElement = document.createElement('h1');
-  nameElement.classList.add('display-3', 'mb-0');
-  nameElement.textContent = i18next.t('rss');
+  const nameAppElement = document.createElement('h1');
+  nameAppElement.classList.add('display-3', 'mb-0');
+  nameAppElement.textContent = i18next.t('rss');
   const p = document.createElement('p');
   p.classList.add('lead');
   p.textContent = i18next.t('motto');
-    
+
   const form = document.createElement('form');
   form.classList.add('rss-form', 'text-body');
   const divFormRow = document.createElement('div');
@@ -49,19 +49,19 @@ export default (state) => {
   button.ariaLabel = 'add';
   button.type = 'submit';
   button.textContent = i18next.t('submit');
- 
+
   divButton.appendChild(button);
   divFormRow.append(divFormCol, divButton);
   form.append(divFormRow);
 
   const pExample = document.createElement('p');
-  pExample.classList.add('mt-2', 'mb-0','text-secondary' );
+  pExample.classList.add('mt-2', 'mb-0', 'text-secondary' );
   pExample.textContent = i18next.t('example');
 
   const pFeedBack = document.createElement('p');
   pFeedBack.classList.add('feedback', 'm-8', 'position-absolute', 'small', 'text-danger');
   pFeedBack.id = 'feedback';
-  divCol.append(nameElement, p, form, pExample, pFeedBack);
+  divCol.append(nameAppElement, p, form, pExample, pFeedBack);
   const divLng = document.createElement('div');
   divLng.classList.add('col-auto', 'h-75');
   divLng.id = 'block-lng';
@@ -71,19 +71,19 @@ export default (state) => {
   groupLng.ariaLabel = 'Basic radio toggle button group';
   const languages = ['en', 'ru', 'cz'];
   languages.forEach((i) => {
-    const input = document.createElement('input');
-    input.type = 'radio';
-    input.classList.add('btn-check');
-    input.name = 'btnradio';
-    input.id = `btnradio${i}`;
-    input.autocomplete = 'off';
-    i === state.lng ? input.checked = true : input.checked = false;
-    const label = document.createElement('label');
-    label.classList.add('btn', 'btn-outline-secondary', 'lng');
-    label.for = `btnradio${i}`;
-    label.dataset.lng = i;
-    label.textContent = i;
-    groupLng.append(input, label);
+    const inputRadio = document.createElement('input');
+    inputRadio.type = 'radio';
+    inputRadio.classList.add('btn-check');
+    inputRadio.name = 'btnradio';
+    inputRadio.id = `btnradio${i}`;
+    inputRadio.autocomplete = 'off';
+    inputRadio.checked = (i === state.lng) ? true : false;
+    const labelRadio = document.createElement('label');
+    labelRadio.classList.add('btn', 'btn-outline-secondary', 'lng');
+    labelRadio.for = `btnradio${i}`;
+    labelRadio.dataset.lng = i;
+    labelRadio.textContent = i;
+    groupLng.append(inputRadio, labelRadio);
   });
   divLng.append(groupLng);
   div.append(divCol, divLng);

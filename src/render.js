@@ -1,5 +1,5 @@
-import i18next from "i18next";
-import appFeeds from "./appFeeds";
+import i18next from 'i18next';
+import appFeeds from './appFeeds';
 
 export default (state) => {
   const { feeds, repliesURLs } = state;
@@ -38,8 +38,13 @@ export default (state) => {
       const id = i[0];
       const { content } = i[1];
       const liCard = document.createElement('li');
-      liCard.classList.add('list-group-item', 'd-flex', 'justify-content-between',
-        'align-items-start', 'border-0', 'border-end-0'
+      liCard.classList.add(
+        'list-group-item',
+        'd-flex',
+        'justify-content-between',
+        'align-items-start',
+        'border-0',
+        'border-end-0',
       );
       const liTitle = document.createElement('h3');
       liTitle.classList.add('h6', 'm-0');
@@ -51,7 +56,7 @@ export default (state) => {
       buttonClouseFeed.type = 'button';
       buttonClouseFeed.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
       buttonClouseFeed.dataset.id = id;
-      buttonClouseFeed.dataset.action = 'delete';
+      buttonClouseFeed.dataset.action = 'deleteFeed';
       buttonClouseFeed.textContent = i18next.t('delete');
       const divLi = document.createElement('div');
       divLi.append(liTitle, liDescription);
@@ -61,8 +66,13 @@ export default (state) => {
       items.forEach(({ ids, post }) => {
         const { link, title } = post;
         const liPost = document.createElement('li');
-        liPost.classList.add('list-group-item', 'd-flex', 'justify-content-between',
-          'align-items-start', 'border-0', 'border-end-0'
+        liPost.classList.add(
+          'list-group-item',
+          'd-flex',
+          'justify-content-between',
+          'align-items-start',
+          'border-0',
+          'border-end-0',
         );
         ulCardPosts.append(liPost);
         const aPost = document.createElement('a');
@@ -75,7 +85,7 @@ export default (state) => {
         buttonOpen.classList.replace('btn-outline-secondary', 'btn-outline-primary');
         buttonOpen.dataset.bsToggle = 'modal';
         buttonOpen.dataset.bsTarget = '#modal';
-        buttonOpen.dataset.action = 'open';
+        buttonOpen.dataset.action = 'openPost';
         buttonOpen.textContent = i18next.t('open');
         buttonOpen.dataset.id = ids;
         liPost.append(aPost, buttonOpen);
@@ -92,7 +102,7 @@ export default (state) => {
       section.removeChild(section.firstChild);
     }
     section.appendChild(divContainer);
-    appFeeds(state);    
+    appFeeds(state);
   } else {
     section.innerHTML = '';
   }

@@ -1,23 +1,23 @@
-import render from "./render";
+import render from './render';
 
 export default (state) => {
   const buttons = document.querySelectorAll('button');
   const { feeds, repliesURLs } = state;
-  buttons.forEach(element => {
-    element.addEventListener('click', (e) => {
-      const action = e.target.dataset.action;
-      switch(action) {
-        case 'delete':
-        const id = e.target.dataset.id;
-        const { url } = feeds[id];
+  buttons.forEach(elButton => {
+    elButton.addEventListener('click', (e) => {
+      const { action } = e.target.dataset;
+      switch (action) {
+        case 'deleteFeed':
+          const { id } = e.target.dataset;
+          const { url } = feeds[id];
           clearTimeout(state.feeds[id].timer);
-          delete feeds[e.target.dataset.id];
+          delete feeds[id];
           state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
           state.feedBackMessage = 'deleted';
           state.response.status = '';
           render(state);
           break;
-        case 'open':
+        case 'openPost':
           const idt = e.target.dataset.id;
           const idts = idt.split('.').map(i => +i);
           state.feeds[idts[0]].content.items.filter((i) => i.ids === idt)[0].post.title.class = 'fw-normal, link-secondary';

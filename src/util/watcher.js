@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import onChange from 'on-change';
-import app from './app.js';
-import render from './render.js';
+import app from '../app.js';
+import render from '../render.js';
 
 const watchedState = (state) => onChange(state, (path, value) => {
   switch (path) {
@@ -22,6 +22,8 @@ const watchedState = (state) => onChange(state, (path, value) => {
     case 'response.status':
       state.response.status = '';
       render(state);
+      break;
+    default:
       break;
   }
 });

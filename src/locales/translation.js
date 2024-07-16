@@ -4,11 +4,11 @@ export default {
       close: 'Zavřít',
       delete: 'Smazat zdroj',
       deleted: 'Zdroj byl úspěšně smazán',
-      example: 'Příklady: https://lorem-rss.hexlet.app/feed, ' +
-        'https://feeds.washingtonpost.com/rss/world, https://thecipherbrief.com/feed',
+      example: 'Příklady: https://lorem-rss.hexlet.app/feed, '
+        + 'https://feeds.washingtonpost.com/rss/world, https://thecipherbrief.com/feed',
       feeds: 'Zdroje',
       loaded: 'RSS úspěšně nahráno',
-      motto : 'Začněte číst RSS ještě dnes! Je to snadné, je to krásné.',
+      motto: 'Začněte číst RSS ještě dnes! Je to snadné, je to krásné.',
       open: 'Dívej se',
       posts: 'Příspěvky',
       read: 'Přečtěte si článek',
@@ -21,18 +21,18 @@ export default {
       'not Empty': 'Nesmí být prázdné',
       'url is invalid': 'RSS již existuje',
       'url must be a valid URL': 'Odkaz musí být platná adresa URL',
-    }
+    },
   },
   en: {
     translation: {
       close: 'Close',
       delete: 'Delete feed',
       deleted: 'The feed was successfully deleted',
-      example: 'Example: https://lorem-rss.hexlet.app/feed, ' +
-        'https://feeds.washingtonpost.com/rss/world, https://thecipherbrief.com/feed',
+      example: 'Example: https://lorem-rss.hexlet.app/feed, '
+        + 'https://feeds.washingtonpost.com/rss/world, https://thecipherbrief.com/feed',
       feeds: 'Feeds',
       loaded: 'RSS uploaded successfully',
-      motto : "Start reading RSS today! It's easy, it's beautiful.",
+      motto: "Start reading RSS today! It's easy, it's beautiful.",
       open: 'Look',
       posts: 'Posts',
       read: 'Read article',
@@ -44,19 +44,19 @@ export default {
       'no rss': 'The resource does not contain valid RSS',
       'not Empty': 'Must not be empty',
       'url is invalid': 'RSS already exists',
-      'url must be a valid URL': 'The link must be a valid URL'
-    }
+      'url must be a valid URL': 'The link must be a valid URL',
+    },
   },
   ru: {
     translation: {
       close: 'Закрыть',
       delete: 'Удалить ленту',
       deleted: 'Лента удалена',
-      example: 'Пример: https://lorem-rss.hexlet.app/feed, ' +
-        'https://feeds.washingtonpost.com/rss/world, http://www.fontanka.ru/fontanka.rss',
+      example: 'Пример: https://lorem-rss.hexlet.app/feed, '
+        + 'https://feeds.washingtonpost.com/rss/world, http://www.fontanka.ru/fontanka.rss',
       feeds: 'Фиды',
       loaded: 'RSS успешно загружен',
-      motto : 'Начните читать RSS сегодня! Это легко, это красиво.',
+      motto: 'Начните читать RSS сегодня! Это легко, это красиво.',
       open: 'Просмотр',
       posts: 'Посты',
       read: 'Читать полностью',
@@ -69,6 +69,6 @@ export default {
       'not Empty': 'Не должно быть пустым',
       'url is invalid': 'RSS уже существует',
       'url must be a valid URL': 'Ссылка должна быть валидным URL',
-    }
+    },
   },
 };
