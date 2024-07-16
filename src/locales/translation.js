@@ -68,7 +68,7 @@ export default {
       'no rss': 'Ресурс не содержит валидный RSS',
       'not Empty': 'Не должно быть пустым',
       'url is invalid': 'RSS уже существует',
-      'url must be a valid URL': 'Ссылка должена быть валидным URL',
+      'url must be a valid URL': 'Ссылка должна быть валидным URL',
     }
   },
 };
