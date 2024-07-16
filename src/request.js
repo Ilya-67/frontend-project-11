@@ -16,7 +16,7 @@ export default (state, id, watchedState, newfeed = false) => {
   axios.get(proxy(url))
   .then(response => {
     if (response.status === 200 ) return response.data;
-    throw new Error('Network error');
+    throw new Error('Network Error');
   })
   .then(data => {
     if (data.contents.slice(2, 5)=== 'xml') {  
