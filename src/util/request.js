@@ -28,13 +28,14 @@ const request = (state, id, newfeed = false) => {
     .then((value) => {
       if (newfeed) {
         parse(state, url, id, value);
+        state.feeds[id].timer = setTimeout(request, 5000, state, id);
       } else {
         clearTimeout(state.feeds[id].timer);
         state.feeds[id].timer = setTimeout(request, 5000, state, id);
       }
       parsePosts(state, id, value);
       state.request.errors = '';
-      watchedState.response.status = 'received';
+      watchedState.response.status = 'loaded';
     })
     .catch((e) => {
       watchedState.request.errors = e.message;

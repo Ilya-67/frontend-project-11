@@ -7,7 +7,7 @@ const watchedState = (state) => onChange(state, (path, value) => {
   switch (path) {
     case 'lng':
       i18next.changeLanguage(value).then(() => {
-        app(state, watchedState(state));
+        app(state);
         render(state);
       });
       break;
@@ -21,6 +21,7 @@ const watchedState = (state) => onChange(state, (path, value) => {
       break;
     case 'response.status':
       state.response.status = '';
+      state.feedBackMessage = value;
       render(state);
       break;
     default:

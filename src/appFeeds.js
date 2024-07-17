@@ -1,19 +1,19 @@
-import render from './render';
+import watcher from './util/watcher';
 
 const deleteFeed = (state, id) => {
+  const watchedState = watcher(state);
   const { feeds, repliesURLs } = state;
   const { url } = feeds[id];
   clearTimeout(state.feeds[id].timer);
   delete feeds[id];
   state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
   state.feedBackMessage = 'deleted';
-  state.response.status = '';
+  watchedState.response.status = 'deleted';
 };
 
 const openPost = (state, id) => {
   const idt = id.split('.').map((i) => +i);
   const currentFeed = state.feeds[idt[0]];
-  console.log(currentFeed.content.items.filter((i) => i.ids === id));
   const [{ post }] = currentFeed.content.items.filter((i) => i.ids === id);
   post.title.class = 'fw-normal, link-secondary';
   const {
@@ -44,7 +44,6 @@ export default (state) => {
       switch (action) {
         case 'deleteFeed':
           deleteFeed(state, id);
-          render(state);
           break;
         case 'openPost':
           openPost(state, id);
