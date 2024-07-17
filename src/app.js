@@ -1,8 +1,36 @@
+import onChange from 'on-change';
+import i18next from 'i18next';
 import * as yup from 'yup';
 import renderModal from './modal.js';
 import renderComponent from './componet.js';
 import request from './util/request.js';
-import watcher from './util/watcher.js';
+import render from './render.js';
+
+const watcher = (state) => onChange(state, (path, value) => {
+  switch (path) {
+    case 'lng':
+      i18next.changeLanguage(value).then(() => {
+        app(state);
+        render(state);
+      });
+      break;
+    case 'request.errors':
+      state.feedBackMessage = value;
+      render(state);
+      break;
+    case 'request.url':
+      state.feedBackMessage = '';
+      render(state);
+      break;
+    case 'response.status':
+      state.response.status = '';
+      state.feedBackMessage = value;
+      render(state);
+      break;
+    default:
+      break;
+  }
+});
 
 const handleSwitchLanguage = (state) => (evt) => {
   const { lng } = evt.target.dataset;
@@ -51,4 +79,5 @@ const app = (state) => {
   });
 };
 
+export { watcher };
 export default app;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import parsePosts from './parsePosts';
 import parse from './parse';
-import watched from './watcher';
+import { watcher } from '../app';
 
 const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
   const requestURL = new URL(base);
@@ -13,7 +13,7 @@ const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
 
 const request = (state, id, newfeed = false) => {
   const { url } = newfeed ? state.request : state.feeds[id];
-  const watchedState = watched(state);
+  const watchedState = watcher(state);
   axios.get(proxy(url))
     .then((response) => {
       if (response.status === 200) return response.data;

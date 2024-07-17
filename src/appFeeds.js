@@ -1,4 +1,4 @@
-import watcher from './util/watcher';
+import { watcher } from './app';
 
 const deleteFeed = (state, id) => {
   const watchedState = watcher(state);
