@@ -1,41 +1,49 @@
 import render from './render';
 
+const deleteFeed = (state, id) => {
+  const { feeds, repliesURLs } = state;
+  const { url } = feeds[id];
+  clearTimeout(state.feeds[id].timer);
+  delete feeds[id];
+  state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
+  state.feedBackMessage = 'deleted';
+  state.response.status = '';
+};
+
+const openPost = (state, id) => {
+  const idt = id.split('.').map(i => +i);
+  const currentFeed = state.feeds[idt[0]];
+  const [{ post }] = currentFeed.content.items.filter((i) => i.ids === id);
+  post.title.class = 'fw-normal, link-secondary';
+  const { title, description, creator, link } = post;
+  const modalHeader = document.getElementById('modalHeader');
+  modalHeader.textContent = title.text;
+  const modalBody = document.getElementById('modalBody');
+  modalBody.innerHTML = '';
+  const modalRedirect = document.getElementById('redirect');
+  modalRedirect.firstChild.href = link;
+  const aDescription = document.createElement('a');
+  aDescription.innerHTML = description;
+  const pCreator = document.createElement('p');
+  pCreator.textContent = creator;
+  modalBody.append(aDescription, pCreator);
+}
+
 export default (state) => {
   const buttons = document.querySelectorAll('button');
-  const { feeds, repliesURLs } = state;
   buttons.forEach(elButton => {
     elButton.addEventListener('click', (e) => {
       const { action } = e.target.dataset;
+      const { id } = e.target.dataset;
       switch (action) {
         case 'deleteFeed':
-          const { id } = e.target.dataset;
-          const { url } = feeds[id];
-          clearTimeout(state.feeds[id].timer);
-          delete feeds[id];
-          state.repliesURLs = repliesURLs.filter(({ urlFeed }) => urlFeed !== url);
-          state.feedBackMessage = 'deleted';
-          state.response.status = '';
+          deleteFeed(state, id);
           render(state);
           break;
         case 'openPost':
-          const idt = e.target.dataset.id;
-          const idts = idt.split('.').map(i => +i);
-          state.feeds[idts[0]].content.items.filter((i) => i.ids === idt)[0].post.title.class = 'fw-normal, link-secondary';
-          const [{ post }] = state.feeds[idts[0]].content.items.filter((i) => i.ids === idt);
-          const { title, description, creator, link } = post;
-          const modalHeader = document.getElementById('modalHeader');
-          const modalBody = document.getElementById('modalBody');
-          const modalRedirect = document.getElementById('redirect');
-          modalRedirect.firstChild.href = link;
-          modalHeader.textContent = title.text;
-          modalBody.innerHTML = '';
-          const aDescription = document.createElement('a');
-          const pCreator = document.createElement('p');
-          aDescription.innerHTML = description;
-          pCreator.textContent = creator;
-          modalBody.append(aDescription, pCreator);
+          openPost(state, id)
           break;
-        default: 
+        default:
           break;
       }
     });

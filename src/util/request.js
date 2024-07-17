@@ -1,7 +1,7 @@
 import axios from 'axios';
 import parsePosts from './parsePosts';
 import parse from './parse';
-import newWatchedState from './watcher';
+import watched from './watcher';
 
 const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
   const requestURL = new URL(base);
@@ -11,9 +11,9 @@ const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
   return requestURL;
 };
 
-const request = (state, id, watchedState, newfeed = false) => {
+const request = (state, id, newfeed = false) => { 
   const { url } = newfeed ? state.request : state.feeds[id];
-  
+  const watchedState = watched(state);
   axios.get(proxy(url))
     .then((response) => {
       if (response.status === 200) return response.data;
@@ -29,15 +29,16 @@ const request = (state, id, watchedState, newfeed = false) => {
       if (newfeed) {
         parse(state, url, id, value);
       } else {
-        console.log(request);
         clearTimeout(state.feeds[id].timer);
-        state.feeds[id].timer = setTimeout(request, 5000, state, id, newWatchedState(state));
+        state.feeds[id].timer = setTimeout(request, 5000, state, id);
       }
       parsePosts(state, id, value);
       state.request.errors = '';
       watchedState.response.status = 'received';
     })
-    .catch((e) => watchedState.request.errors = e.message);
+    .catch((e) => {
+      watchedState.request.errors = e.message;
+    });
 };
 
 export default request;

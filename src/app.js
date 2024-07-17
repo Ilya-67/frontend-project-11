@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import renderModal from './modal.js';
 import renderComponent from './componet.js';
 import request from './util/request.js';
+import watcher from './util/watcher.js'
 
 const handleSwitchLanguage = (state) => (evt) => {
   const { lng } = evt.target.dataset;
@@ -19,8 +20,9 @@ const schema = (state) => yup.object().shape({
   url: yup.string().url().required('not Empty').myValidator(state),
 });
 
-const app = (state, watchedState) => {
+const app = (state) => {
   document.body.replaceChildren(renderModal(), renderComponent(state));
+  const watchedState = watcher(state);
 
   const radioChecks = document.querySelectorAll('.lng');
   radioChecks.forEach((i) => i.addEventListener('click', handleSwitchLanguage(watchedState)));
@@ -43,7 +45,7 @@ const app = (state, watchedState) => {
     e.preventDefault();
     if (state.request.status) {
       state.count += 1;
-      request(state, state.count, watchedState, true);
+      request(state, state.count, true);
     }
     e.target.reset();
   });

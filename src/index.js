@@ -3,7 +3,6 @@ import 'bootstrap';
 import i18next from 'i18next';
 import app from './app.js';
 import resourcesLng from './locales/resources.js';
-import watchedState from './util/watcher.js';
 
 const runApp = () => {
   const state = {
@@ -27,7 +26,7 @@ const runApp = () => {
     lng: 'ru',
     resources: resourcesLng,
   });
-  app(state, watchedState(state));
+  app(state);
 };
 
 runApp();

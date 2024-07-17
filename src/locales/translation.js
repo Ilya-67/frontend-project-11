@@ -61,7 +61,7 @@ export default {
       posts: 'Посты',
       read: 'Читать полностью',
       ref: 'Ссылка RSS',
-      rss: 'RSS агрегатор', 
+      rss: 'RSS агрегатор',
       submit: 'Добавить',
       "Cannot read properties of null (reading 'slice')": 'Недействительный адрес',
       'Network Error': 'Ошибка сети',
