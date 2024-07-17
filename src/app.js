@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import renderModal from './modal.js';
 import renderComponent from './componet.js';
 import request from './util/request.js';
-import watcher from './util/watcher.js'
+import watcher from './util/watcher.js';
 
 const handleSwitchLanguage = (state) => (evt) => {
   const { lng } = evt.target.dataset;

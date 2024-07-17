@@ -11,11 +11,16 @@ const deleteFeed = (state, id) => {
 };
 
 const openPost = (state, id) => {
-  const idt = id.split('.').map(i => +i);
+  const idt = id.split('.').map((i) => +i);
   const currentFeed = state.feeds[idt[0]];
   const [{ post }] = currentFeed.content.items.filter((i) => i.ids === id);
   post.title.class = 'fw-normal, link-secondary';
-  const { title, description, creator, link } = post;
+  const {
+    title,
+    description,
+    creator,
+    link
+  } = post;
   const modalHeader = document.getElementById('modalHeader');
   modalHeader.textContent = title.text;
   const modalBody = document.getElementById('modalBody');
@@ -27,11 +32,11 @@ const openPost = (state, id) => {
   const pCreator = document.createElement('p');
   pCreator.textContent = creator;
   modalBody.append(aDescription, pCreator);
-}
+};
 
 export default (state) => {
   const buttons = document.querySelectorAll('button');
-  buttons.forEach(elButton => {
+  buttons.forEach((elButton) => {
     elButton.addEventListener('click', (e) => {
       const { action } = e.target.dataset;
       const { id } = e.target.dataset;
@@ -41,7 +46,7 @@ export default (state) => {
           render(state);
           break;
         case 'openPost':
-          openPost(state, id)
+          openPost(state, id);
           break;
         default:
           break;

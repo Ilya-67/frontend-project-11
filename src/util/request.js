@@ -11,7 +11,7 @@ const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
   return requestURL;
 };
 
-const request = (state, id, newfeed = false) => { 
+const request = (state, id, newfeed = false) => {
   const { url } = newfeed ? state.request : state.feeds[id];
   const watchedState = watched(state);
   axios.get(proxy(url))

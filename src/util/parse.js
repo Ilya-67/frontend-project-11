@@ -1,5 +1,4 @@
 import request from './request';
-import watchedState from './watcher';
 
 export default (state, url, idFeed, responseDocs) => {
   state.feedBackMessage = 'loaded';
@@ -14,5 +13,5 @@ export default (state, url, idFeed, responseDocs) => {
   state.feeds[idFeed].content.feedTitle = title.firstChild.textContent ?? title.textContent;
   const remark = responseDocs.querySelector('description');
   state.feeds[idFeed].content.feedDescription = remark.firstChild.textContent ?? remark.textContent;
-  state.feeds[idFeed].timer = setTimeout(request, 5000, state, idFeed); //watchedState(state)
+  state.feeds[idFeed].timer = setTimeout(request, 5000, state, idFeed);
 };
