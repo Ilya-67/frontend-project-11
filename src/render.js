@@ -102,7 +102,7 @@ export default (state) => {
       section.removeChild(section.firstChild);
     }
     section.appendChild(divContainer);
-    appFeeds(state)
+    appFeeds(state);
   } else {
     section.innerHTML = '';
   }

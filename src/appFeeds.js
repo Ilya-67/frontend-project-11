@@ -20,7 +20,7 @@ const openPost = (state, id) => {
     title,
     description,
     creator,
-    link
+    link,
   } = post;
   const modalHeader = document.getElementById('modalHeader');
   modalHeader.textContent = title.text;
@@ -33,21 +33,21 @@ const openPost = (state, id) => {
   const pCreator = document.createElement('p');
   pCreator.textContent = creator;
   modalBody.append(aDescription, pCreator);
-}
+};
 
 export default (state) => {
   const buttons = document.querySelectorAll('button');
   buttons.forEach((elButton) => {
     elButton.addEventListener('click', (e) => {
-      const  action = e.target.dataset.action;
-      const id = e.target.dataset.id;
+      const { action } = e.target.dataset;
+      const { id } = e.target.dataset;
       switch (action) {
         case 'deleteFeed':
           deleteFeed(state, id);
           render(state);
           break;
         case 'openPost':
-          openPost(state, id)
+          openPost(state, id);
           break;
         default:
           break;
