@@ -13,6 +13,7 @@ const deleteFeed = (state, id) => {
 const openPost = (state, id) => {
   const idt = id.split('.').map((i) => +i);
   const currentFeed = state.feeds[idt[0]];
+  console.log(currentFeed.content.items.filter((i) => i.ids === id));
   const [{ post }] = currentFeed.content.items.filter((i) => i.ids === id);
   post.title.class = 'fw-normal, link-secondary';
   const {
@@ -32,21 +33,21 @@ const openPost = (state, id) => {
   const pCreator = document.createElement('p');
   pCreator.textContent = creator;
   modalBody.append(aDescription, pCreator);
-};
+}
 
 export default (state) => {
   const buttons = document.querySelectorAll('button');
   buttons.forEach((elButton) => {
     elButton.addEventListener('click', (e) => {
-      const { action } = e.target.dataset;
-      const { id } = e.target.dataset;
+      const  action = e.target.dataset.action;
+      const id = e.target.dataset.id;
       switch (action) {
         case 'deleteFeed':
           deleteFeed(state, id);
           render(state);
           break;
         case 'openPost':
-          openPost(state, id);
+          openPost(state, id)
           break;
         default:
           break;
