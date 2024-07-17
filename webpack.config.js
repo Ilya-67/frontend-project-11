@@ -29,21 +29,21 @@ const config = {
       {
         test: /\.s(a|c)ss$/i,
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
-// exclude: /node_modules/
+        // exclude: /node_modules/
       },
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader', 'postcss-loader'],
-// exclude: /node_modules/
+      // exclude: /node_modules/
       },
       {
         test: /\.js|jsx$/i,
-		exclude: /node_modules/,
-	    use: { 
-		  loader: 'babel-loader',
-		  options: {
-		    presets: ['@babel/preset-env'],
-		  },
+        exclude: /node_modules/,
+         use: { 
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
         },
       },
     ],

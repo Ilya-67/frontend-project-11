@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import renderModal from './modal.js';
 import renderComponent from './componet.js';
-import request from './util/request.js'
+import request from './util/request.js';
 
 const handleSwitchLanguage = (state) => (evt) => {
   const { lng } = evt.target.dataset;
@@ -11,7 +11,7 @@ const handleSwitchLanguage = (state) => (evt) => {
 yup.addMethod(yup.string, 'myValidator', function myValidator(state) {
   return this.test('RSS уже существует', (currentURL) => {
     const urls = state.repliesURLs.map(({ urlFeed }) => urlFeed);
-    return  urls.includes(currentURL) ? false : currentURL;
+    return urls.includes(currentURL) ? false : currentURL;
   });
 });
 
@@ -42,7 +42,7 @@ const app = (state, watchedState) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (state.request.status) {
-      state.count += state.count;
+      state.count += 1;
       request(state, state.count, watchedState, true);
     }
     e.target.reset();

@@ -62,7 +62,7 @@ export default (state) => {
       divLi.append(liTitle, liDescription);
       liCard.append(divLi, buttonClouseFeed);
       ulCard.append(liCard);
-      const items = content.items;
+      const { items } = content;
       items.forEach(({ ids, post }) => {
         const { link, title } = post;
         const liPost = document.createElement('li');

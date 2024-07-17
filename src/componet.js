@@ -55,7 +55,7 @@ export default (state) => {
   form.append(divFormRow);
 
   const pExample = document.createElement('p');
-  pExample.classList.add('mt-2', 'mb-0', 'text-secondary' );
+  pExample.classList.add('mt-2', 'mb-0', 'text-secondary');
   pExample.textContent = i18next.t('example');
 
   const pFeedBack = document.createElement('p');
@@ -77,7 +77,7 @@ export default (state) => {
     inputRadio.name = 'btnradio';
     inputRadio.id = `btnradio${i}`;
     inputRadio.autocomplete = 'off';
-    inputRadio.checked = (i === state.lng) ? true : false;
+    if (i === state.lng) inputRadio.checked = true;
     const labelRadio = document.createElement('label');
     labelRadio.classList.add('btn', 'btn-outline-secondary', 'lng');
     labelRadio.for = `btnradio${i}`;

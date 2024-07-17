@@ -1,6 +1,6 @@
-import i18next from "i18next";
+import i18next from 'i18next';
 
-export default  () => {
+export default () => {
   const divModal = document.createElement('div');
   divModal.classList.add('modal', 'fade');
   divModal.id = 'modal';
@@ -31,7 +31,7 @@ export default  () => {
 
   const divFooter = document.createElement('div');
   divFooter.classList.add('modal-footer');
-  
+
   const buttonClose = document.createElement('button');
   buttonClose.type = 'button';
   buttonClose.classList.add('btn', 'btn-outline-secondary');
