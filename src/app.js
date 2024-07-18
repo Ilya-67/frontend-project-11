@@ -42,9 +42,9 @@ const app = (state) => {
 
   const watchedState = watcher(state);
 
-  const handleSwitchLanguage = (state) => (evt) => {
+  const handleSwitchLanguage = (wState) => (evt) => {
     const { lng } = evt.target.dataset;
-    state.lng = lng;
+    wState.lng = lng;
     app(state);
   };
 

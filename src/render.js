@@ -65,11 +65,11 @@ const render = (state) => {
   const section = document.getElementById('container-xxl');
   const { repliesURLs } = state;
   if (repliesURLs.length > 0) {
-    const divContainer = renderFeeds(state);
+    const container = renderFeeds(state);
     if (section.hasChildNodes()) {
       section.removeChild(section.firstChild);
     }
-    section.appendChild(divContainer);
+    section.appendChild(container);
   } else {
     section.innerHTML = '';
   }

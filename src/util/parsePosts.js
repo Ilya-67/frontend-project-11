@@ -7,28 +7,28 @@ export default (state, id, responseDocs) => {
     if (index === 0) state.feeds[id].lastTime = pubDate;
     if (new Date(pubDate) > new Date(controlTime)) {
       const idt = `${id}.${new Date(pubDate).getTime()}`;
-      const post = {};
+      const currentPost = {};
 
-      post.pubDate = pubDate;
+      currentPost.pubDate = pubDate;
 
       const titlePost = item.querySelector('title').textContent ?? item.querySelector('title').firstChild.textContent;
-      post.title = {};
-      post.title.text = titlePost;
-      post.title.class = 'fw-bold';
+      currentPost.title = {};
+      currentPost.title.text = titlePost;
+      currentPost.title.class = 'fw-bold';
 
       const descriptionPost = item.querySelector('description').textContent ?? item.querySelector('description').firstChild.textContent;
-      post.description = descriptionPost;
+      currentPost.description = descriptionPost;
 
       const link = item.querySelector('link').firstChild.textContent;
-      post.link = link;
+      currentPost.link = link;
 
       const datacreator = item.querySelector('creator') ?? item.querySelector('author');
       const creator = datacreator !== null ? datacreator.firstChild.textContent : datacreator;
-      post.creator = creator;
+      currentPost.creator = creator;
 
-      const itemPost = { ids: idt, post: post };
-      state.feeds[id].content.items = controlTime === 0 ? [...items, itemPost] : [itemPost, ...items];
-      state.feeds[id].content.items = state.feeds[id].content.items.filter((i, idx) => idx < 15);
+      const itemPost = { ids: idt, post: currentPost };
+      const posts = controlTime === 0 ? [...items, itemPost] : [itemPost, ...items];
+      state.feeds[id].content.items = posts.filter((i, idx) => idx < 15);
     }
   });
 };
