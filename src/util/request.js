@@ -42,7 +42,7 @@ const request = (state, id, newfeed = false) => {
       throw new Error('no rss');
     })
     .then((value) => {
-      if (newfeed) parse(state, url, id, value) 
+      if (newfeed) parse(state, url, id, value);
       else clearTimeout(state.feeds[id].timer);
       parsePosts(state, id, value);
       state.feeds[id].timer = setTimeout(request, 5000, state, id);
