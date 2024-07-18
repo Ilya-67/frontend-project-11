@@ -33,28 +33,7 @@ const openPost = (state, id) => {
   modalBody.append(aDescription, pCreator);
 };
 
-const render = (state) => {
-  const appFeeds = () => {
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach((elButton) => {
-      elButton.addEventListener('click', (e) => {
-        const { action } = e.target.dataset;
-        const { id } = e.target.dataset;
-        switch (action) {
-          case 'deleteFeed':
-            deleteFeed(state, id);
-            render(state);
-            break;
-          case 'openPost':
-            openPost(state, id);
-            break;
-          default:
-            break;
-        }
-      });
-    });
-  };
-
+const renderFeeds = (state) => {
   const { feeds, repliesURLs } = state;
   const section = document.getElementById('container-xxl');
   const pFeedBack = document.getElementById('feedback');
@@ -155,10 +134,36 @@ const render = (state) => {
       section.removeChild(section.firstChild);
     }
     section.appendChild(divContainer);
-    appFeeds(state);
+    
   } else {
     section.innerHTML = '';
   }
+};
+
+const render = (state) => {
+  const appFeeds = () => {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((elButton) => {
+      elButton.addEventListener('click', (e) => {
+        const { action } = e.target.dataset;
+        const { id } = e.target.dataset;
+        switch (action) {
+          case 'deleteFeed':
+            deleteFeed(state, id);
+            render(state);
+            break;
+          case 'openPost':
+            openPost(state, id);
+            break;
+          default:
+            break;
+        }
+      });
+    });
+  };
+
+  renderFeeds(state);
+  appFeeds(state);
 };
 
 export default render;
