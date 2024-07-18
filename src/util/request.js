@@ -1,7 +1,24 @@
 import axios from 'axios';
+import onChange from 'on-change';
 import parsePosts from './parsePosts';
 import parse from './parse';
-import { watcher } from '../app';
+import render from '../render';
+
+const watcher = (state) => onChange(state, (path, value) => {
+  switch (path) {
+    case 'request.errors':
+      state.feedBackMessage = value;
+      render(state);
+      break;
+    case 'response.status':
+      state.response.status = '';
+      state.feedBackMessage = value;
+      render(state);
+      break;
+    default:
+      break;
+  }
+});
 
 const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
   const requestURL = new URL(base);
@@ -20,9 +37,9 @@ const request = (state, id, newfeed = false) => {
       throw new Error('Network Error');
     })
     .then((data) => {
-      if (data.contents.slice(2, 5) === 'xml') {
-        return new DOMParser().parseFromString(data.contents, 'text/xml');
-      }
+      const parseDoc = new DOMParser().parseFromString(data.contents, 'application/xml');
+      const resulError = parseDoc.querySelector('parsererror');
+      if (!resulError)  return parseDoc;
       throw new Error('no rss');
     })
     .then((value) => {

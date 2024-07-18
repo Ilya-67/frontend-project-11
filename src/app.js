@@ -22,11 +22,6 @@ const watcher = (state) => onChange(state, (path, value) => {
       state.feedBackMessage = '';
       render(state);
       break;
-    case 'response.status':
-      state.response.status = '';
-      state.feedBackMessage = value;
-      render(state);
-      break;
     default:
       break;
   }
@@ -79,5 +74,4 @@ const app = (state) => {
   });
 };
 
-export { watcher };
 export default app;
