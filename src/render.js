@@ -34,7 +34,6 @@ const openPost = (state, id) => {
 };
 
 const render = (state) => {
-
   const appFeeds = () => {
     const buttons = document.querySelectorAll('button');
     buttons.forEach((elButton) => {
@@ -55,7 +54,7 @@ const render = (state) => {
       });
     });
   };
- 
+
   const { feeds, repliesURLs } = state;
   const section = document.getElementById('container-xxl');
   const pFeedBack = document.getElementById('feedback');
