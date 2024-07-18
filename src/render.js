@@ -134,7 +134,6 @@ const renderFeeds = (state) => {
       section.removeChild(section.firstChild);
     }
     section.appendChild(divContainer);
-    
   } else {
     section.innerHTML = '';
   }
