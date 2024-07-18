@@ -6,10 +6,25 @@ import renderComponent from './componet.js';
 import request from './util/request.js';
 import render from './render.js';
 
-const handleSwitchLanguage = (state) => (evt) => {
-  const { lng } = evt.target.dataset;
-  state.lng = lng;
-};
+const watcher = (state) => onChange(state, (path, value) => {
+  switch (path) {
+    case 'lng':
+      i18next.changeLanguage(value).then(() => {
+        render(state);
+      });
+      break;
+    case 'request.errors':
+      state.feedBackMessage = value;
+      render(state);
+      break;
+    case 'request.url':
+      state.feedBackMessage = '';
+      render(state);
+      break;
+    default:
+      break;
+  }
+});
 
 yup.addMethod(yup.string, 'myValidator', function myValidator(state) {
   return this.test('RSS уже существует', (currentURL) => {
@@ -25,26 +40,13 @@ const schema = (state) => yup.object().shape({
 const app = (state) => {
   document.body.replaceChildren(renderModal(), renderComponent(state));
 
-  const watchedState = onChange(state, (path, value) => {
-    switch (path) {
-      case 'lng':
-        i18next.changeLanguage(value).then(() => {
-          app(state);
-          render(state);
-        });
-        break;
-      case 'request.errors':
-        state.feedBackMessage = value;
-        render(state);
-        break;
-      case 'request.url':
-        state.feedBackMessage = '';
-        render(state);
-        break;
-      default:
-        break;
-    }
-  });
+  const watchedState = watcher(state);
+
+  const handleSwitchLanguage = (state) => (evt) => {
+    const { lng } = evt.target.dataset;
+    state.lng = lng;
+    app(state);
+  };
 
   const radioChecks = document.querySelectorAll('.lng');
   radioChecks.forEach((i) => i.addEventListener('click', handleSwitchLanguage(watchedState)));
