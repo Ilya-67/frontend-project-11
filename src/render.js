@@ -21,12 +21,9 @@ const openPost = (state, id) => {
     creator,
     link,
   } = post;
-  const modalHeader = document.getElementById('modalHeader');
-  modalHeader.textContent = title.text;
-  const modalBody = document.getElementById('modalBody');
-  modalBody.innerHTML = '';
-  const modalRedirect = document.getElementById('redirect');
-  modalRedirect.firstChild.href = link;
+  document.getElementById('modalHeader').textContent = title.text;
+  document.getElementById('modalBody').innerHTML = '';
+  document.getElementById('redirect').firstChild.href = link;
   const aDescription = document.createElement('a');
   aDescription.innerHTML = description;
   const pCreator = document.createElement('p');
@@ -35,44 +32,30 @@ const openPost = (state, id) => {
 };
 
 const render = (state) => {
-  const appFeeds = () => {
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach((elButton) => {
-      elButton.addEventListener('click', (e) => {
-        const { action } = e.target.dataset;
-        const { id } = e.target.dataset;
-        switch (action) {
-          case 'deleteFeed':
-            deleteFeed(state, id);
-            render(state);
-            break;
-          case 'openPost':
-            openPost(state, id);
-            break;
-          default:
-            break;
-        }
-      });
-    });
-  };
+  const { feedBackMessage, repliesURLs } = state;
   const pFeedBack = document.getElementById('feedback');
-  if (state.feedBackMessage === 'loaded') {
-    pFeedBack.classList.replace('text-danger', 'text-success');
-  } else {
-    pFeedBack.classList.replace('text-success', 'text-danger');
-  }
-  pFeedBack.textContent = i18next.t(`${state.feedBackMessage}`);
+  const [classOld, classNew] = (feedBackMessage === 'loaded') ?
+    ['text-danger', 'text-success'] : ['text-success', 'text-danger'];
+  pFeedBack.classList.replace(classOld, classNew);
+  pFeedBack.textContent = i18next.t(`${feedBackMessage}`);
   const section = document.getElementById('container-xxl');
-  const { repliesURLs } = state;
   if (repliesURLs.length > 0) {
-    if (section.hasChildNodes()) {
-      section.removeChild(section.firstChild);
-    }
-    section.appendChild(renderFeeds(state));
+    section.replaceChildren(renderFeeds(state));
   } else {
     section.innerHTML = '';
   }
-  appFeeds(state);
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach((elButton) => {
+    elButton.addEventListener('click', (e) => {
+      const { action, id } = e.target.dataset;
+      if (action === 'deleteFeed') {
+        deleteFeed(state, id);
+        render(state);
+      } else if (action === 'openPost') {
+        openPost(state, id);
+      }
+    });
+  });
 };
 
 export default render;

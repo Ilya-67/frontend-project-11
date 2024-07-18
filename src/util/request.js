@@ -38,20 +38,13 @@ const request = (state, id, newfeed = false) => {
     })
     .then((data) => {
       const parseDoc = new DOMParser().parseFromString(data.contents, 'application/xml');
-      const resulError = parseDoc.querySelector('parsererror');
-      if (!resulError) return parseDoc;
+      if (!parseDoc.querySelector('parsererror')) return parseDoc;
       throw new Error('no rss');
     })
     .then((value) => {
-      if (newfeed) {
-        parse(state, url, id, value);
-        state.feeds[id].timer = setTimeout(request, 5000, state, id);
-      } else {
-        clearTimeout(state.feeds[id].timer);
-        state.feeds[id].timer = setTimeout(request, 5000, state, id);
-      }
+      (newfeed) ? parse(state, url, id, value) : clearTimeout(state.feeds[id].timer);
       parsePosts(state, id, value);
-      state.request.errors = '';
+      state.feeds[id].timer = setTimeout(request, 5000, state, id);
       watchedState.response.status = 'loaded';
     })
     .catch((e) => {
