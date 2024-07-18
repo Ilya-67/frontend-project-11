@@ -42,7 +42,8 @@ const request = (state, id, newfeed = false) => {
       throw new Error('no rss');
     })
     .then((value) => {
-      (newfeed) ? parse(state, url, id, value) : clearTimeout(state.feeds[id].timer);
+      if (newfeed) parse(state, url, id, value) 
+      else clearTimeout(state.feeds[id].timer);
       parsePosts(state, id, value);
       state.feeds[id].timer = setTimeout(request, 5000, state, id);
       watchedState.response.status = 'loaded';

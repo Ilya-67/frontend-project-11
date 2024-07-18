@@ -22,20 +22,19 @@ const openPost = (state, id) => {
     link,
   } = post;
   document.getElementById('modalHeader').textContent = title.text;
-  document.getElementById('modalBody').innerHTML = '';
   document.getElementById('redirect').firstChild.href = link;
   const aDescription = document.createElement('a');
   aDescription.innerHTML = description;
   const pCreator = document.createElement('p');
   pCreator.textContent = creator;
-  modalBody.append(aDescription, pCreator);
+  document.getElementById('modalBody').replaceChildren(aDescription, pCreator);
 };
 
 const render = (state) => {
   const { feedBackMessage, repliesURLs } = state;
   const pFeedBack = document.getElementById('feedback');
-  const [classOld, classNew] = (feedBackMessage === 'loaded') ?
-    ['text-danger', 'text-success'] : ['text-success', 'text-danger'];
+  const [classOld, classNew] = (feedBackMessage === 'loaded')
+    ? ['text-danger', 'text-success'] : ['text-success', 'text-danger'];
   pFeedBack.classList.replace(classOld, classNew);
   pFeedBack.textContent = i18next.t(`${feedBackMessage}`);
   const section = document.getElementById('container-xxl');
