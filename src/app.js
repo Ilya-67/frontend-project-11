@@ -6,27 +6,6 @@ import renderComponent from './componet.js';
 import request from './util/request.js';
 import render from './render.js';
 
-const watcher = (state) => onChange(state, (path, value) => {
-  switch (path) {
-    case 'lng':
-      i18next.changeLanguage(value).then(() => {
-        app(state);
-        render(state);
-      });
-      break;
-    case 'request.errors':
-      state.feedBackMessage = value;
-      render(state);
-      break;
-    case 'request.url':
-      state.feedBackMessage = '';
-      render(state);
-      break;
-    default:
-      break;
-  }
-});
-
 const handleSwitchLanguage = (state) => (evt) => {
   const { lng } = evt.target.dataset;
   state.lng = lng;
@@ -45,7 +24,27 @@ const schema = (state) => yup.object().shape({
 
 const app = (state) => {
   document.body.replaceChildren(renderModal(), renderComponent(state));
-  const watchedState = watcher(state);
+
+  const watchedState = onChange(state, (path, value) => {
+    switch (path) {
+      case 'lng':
+        i18next.changeLanguage(value).then(() => {
+          app(state);
+          render(state);
+        });
+        break;
+      case 'request.errors':
+        state.feedBackMessage = value;
+        render(state);
+        break;
+      case 'request.url':
+        state.feedBackMessage = '';
+        render(state);
+        break;
+      default:
+        break;
+    }
+  });
 
   const radioChecks = document.querySelectorAll('.lng');
   radioChecks.forEach((i) => i.addEventListener('click', handleSwitchLanguage(watchedState)));

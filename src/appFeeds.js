@@ -2,10 +2,10 @@ import onChange from 'on-change';
 import render from './render';
 
 const watcher = (state) => onChange(state, (path, value) => {
-  if (path = 'response.status') {
-      state.response.status = '';
-      state.feedBackMessage = value;
-      render(state);
+  if (path === 'response.status') {
+    state.response.status = '';
+    state.feedBackMessage = value;
+    render(state);
   }
 });
 

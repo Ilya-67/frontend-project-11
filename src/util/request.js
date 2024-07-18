@@ -39,7 +39,7 @@ const request = (state, id, newfeed = false) => {
     .then((data) => {
       const parseDoc = new DOMParser().parseFromString(data.contents, 'application/xml');
       const resulError = parseDoc.querySelector('parsererror');
-      if (!resulError)  return parseDoc;
+      if (!resulError) return parseDoc;
       throw new Error('no rss');
     })
     .then((value) => {
