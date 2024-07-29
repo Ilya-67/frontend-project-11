@@ -1,12 +1,29 @@
-export default (state, id, responseDocs) => {
+export default (state, url, idFeed, responseDocs, newFeed = false) => {
+  if (newFeed) {
+    state.feeds[idFeed] = {};
+    const feed = state.feeds[idFeed];
+    feed.url = `${url}`;
+    feed.lastTime = 0;
+    feed.content = {};
+    feed.content.items = [];
+    const title = responseDocs.querySelector('title');
+    feed.content.feedTitle = title.firstChild.textContent ?? title.textContent;
+    const remark = responseDocs.querySelector('description');
+    feed.content.feedDescription = remark.firstChild.textContent ?? remark.textContent;
+
+    const urlFeed = { id: idFeed, urlFeed: url };
+    state.repliesURLs = [...state.repliesURLs, urlFeed];
+  } else {
+    clearTimeout(state.feeds[idFeed].timer);
+  }
   const itemsDoc = responseDocs.querySelectorAll('item');
-  const controlTime = state.feeds[id].lastTime;
+  const controlTime = state.feeds[idFeed].lastTime;
   itemsDoc.forEach((item, index) => {
-    const { items } = state.feeds[id].content;
+    const { items } = state.feeds[idFeed].content;
     const pubDate = item.querySelector('pubDate').textContent;
-    if (index === 0) state.feeds[id].lastTime = pubDate;
+    if (index === 0) state.feeds[idFeed].lastTime = pubDate;
     if (new Date(pubDate) > new Date(controlTime)) {
-      const idt = `${id}.${new Date(pubDate).getTime()}`;
+      const idt = `${idFeed}.${new Date(pubDate).getTime()}`;
       const currentPost = {};
 
       currentPost.pubDate = pubDate;
@@ -28,7 +45,7 @@ export default (state, id, responseDocs) => {
 
       const itemPost = { ids: idt, post: currentPost };
       const posts = controlTime === 0 ? [...items, itemPost] : [itemPost, ...items];
-      state.feeds[id].content.items = posts.filter((i, idx) => idx < 15);
+      state.feeds[idFeed].content.items = posts.filter((i, idx) => idx < 15);
     }
   });
 };

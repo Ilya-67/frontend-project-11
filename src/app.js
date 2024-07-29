@@ -3,7 +3,7 @@ import i18next from 'i18next';
 import * as yup from 'yup';
 import renderModal from './modal.js';
 import renderComponent from './componet.js';
-import request from './util/request.js';
+import request from './request.js';
 import render from './render.js';
 
 const watcher = (state) => onChange(state, (path, value) => {

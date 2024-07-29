@@ -1,8 +1,7 @@
 import axios from 'axios';
 import onChange from 'on-change';
-import parsePosts from './parsePosts';
 import parse from './parse';
-import render from '../render';
+import render from './render';
 
 const watcher = (state) => onChange(state, (path, value) => {
   switch (path) {
@@ -20,7 +19,7 @@ const watcher = (state) => onChange(state, (path, value) => {
   }
 });
 
-const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
+const getProxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
   const requestURL = new URL(base);
   const newURL = encodeURI(inputURL);
   requestURL.searchParams.set('disableCache', true);
@@ -31,9 +30,9 @@ const proxy = (inputURL, base = 'https://allorigins.hexlet.app/get') => {
 const request = (state, id, newfeed = false) => {
   const { url } = newfeed ? state.request : state.feeds[id];
   const watchedState = watcher(state);
-  axios.get(proxy(url))
+  axios.get(getProxy(url))
     .then((response) => {
-      if (response.status === 200) return response.data;
+      if (response) return response.data;
       throw new Error('Network Error');
     })
     .then((data) => {
@@ -42,10 +41,9 @@ const request = (state, id, newfeed = false) => {
       throw new Error('no rss');
     })
     .then((value) => {
-      if (newfeed) parse(state, url, id, value);
-      else clearTimeout(state.feeds[id].timer);
-      parsePosts(state, id, value);
-      state.feeds[id].timer = setTimeout(request, 5000, state, id);
+      parse(state, url, id, value, newfeed);
+      const timeout = 5000;
+      state.feeds[id].timer = setTimeout(request, timeout, state, id);
       watchedState.response.status = 'loaded';
     })
     .catch((e) => {
