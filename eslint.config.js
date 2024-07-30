@@ -1,4 +1,4 @@
-import globals from 'globals';
+/*import globals from 'globals';*/
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -13,6 +13,8 @@ const compat = new FlatCompat({
 
 export default [
   { files: ['**/*.js'], languageOptions: { sourceType: 'script' } },
-  { languageOptions: { globals: globals.node } },
+  { languageOptions: { globals: Promise: "off" } },
   ...compat.extends('airbnb'),
 ];
+/*globals.node*/
+
