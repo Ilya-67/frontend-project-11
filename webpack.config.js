@@ -47,6 +47,9 @@ const config = {
       },
     ],
   },
+  resolve: {
+    modules: ['node_modules'],
+  },
 };
 
 module.exports = () => {
