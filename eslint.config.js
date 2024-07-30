@@ -9,7 +9,7 @@ const { FlatCompat } = require('@eslint/eslintrc');
 // import pluginJs from '@eslint/js';
 const pluginJs = require('@eslint/js');
 
-const filename = fileURLToPath();
+const filename = fileURLToPath('');
 const dirname = path.dirname(filename);
 const compat = new FlatCompat({
   baseDirectory: dirname, recommendedConfig: pluginJs.configs.recommended,
