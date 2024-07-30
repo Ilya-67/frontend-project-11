@@ -1,8 +1,8 @@
-/*import globals from 'globals';*/
+import globals from 'globals.esm.mjs';
 
-import path from 'path';
+import path from 'path.esm.mjs';
 import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
+import { FlatCompat } from '@eslint/eslintrc.esm.mjs';
 import pluginJs from '@eslint/js';
 
 const filename = fileURLToPath(import.meta.url);
