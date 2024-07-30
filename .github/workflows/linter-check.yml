@@ -1,0 +1,24 @@
+name: linter-check
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cashe: "npm"
+      - run: make install
+      - run: make lint
+#        - name: publish code style
+#        uses: paambaati/codeclimate-action@v3.0.0
+#        env:
+#        CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_ID }
