@@ -15,8 +15,8 @@ const compat = new FlatCompat({
   baseDirectory: dirname, recommendedConfig: pluginJs.configs.recommended,
 });
 
-export default [
+module.exports = () => {[
   { files: ['**/*.js'], languageOptions: { sourceType: 'script' } },
   { languageOptions: { globals: globals.node } },
   ...compat.extends('airbnb'),
-];
+]};
