@@ -1,5 +1,5 @@
 // import globals from 'globals';
-//const globals = require('globals');
+const globals = require('globals');
 // import path from 'path';
 //const path = require('path');
 // import { fileURLToPath } from 'url';
