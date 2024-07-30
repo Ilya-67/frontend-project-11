@@ -26,8 +26,7 @@
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@eslint/create-config": "^1.0.0",
-    "@eslint/eslintrc": "^3.1.0",
-    "@eslint/js": "^9.8.0",
+    
     "@webpack-cli/generators": "^3.0.7",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^9.1.3",
@@ -39,7 +38,6 @@
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "globals": "^15.8.0",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.9.0",
     "postcss-loader": "^8.1.1",
@@ -51,9 +49,12 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.8.0",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "globals": "^15.8.0",
     "i18next": "^23.11.5",
     "on-change": "^5.0.1",
     "yup": "^1.4.0"
