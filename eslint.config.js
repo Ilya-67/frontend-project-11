@@ -1,12 +1,12 @@
-//import globals from 'globals';
+// import globals from 'globals';
 const globals = require('globals');
-//import path from 'path';
+// import path from 'path';
 const path = require('path');
-//import { fileURLToPath } from 'url';
-const { fileURLToPath } = require('url');
-//import { FlatCompat } from '@eslint/eslintrc';
+// import { fileURLToPath } from 'url';
+const { fileURLToPath } = require('node:url');
+// import { FlatCompat } from '@eslint/eslintrc';
 const { FlatCompat } = require('@eslint/eslintrc');
-//import pluginJs from '@eslint/js';
+// import pluginJs from '@eslint/js';
 const pluginJs = require('@eslint/js');
 
 const filename = fileURLToPath(import.meta.url);
