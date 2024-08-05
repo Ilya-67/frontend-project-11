@@ -1,10 +1,10 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
 import * as yup from 'yup';
-import renderModal from './modal.js';
-import renderComponent from './componet.js';
-import request from './request.js';
-import render from './render.js';
+import renderModal from './getModalComponent';
+import renderComponent from './getMainComponet';
+import request from './request';
+import render from './render';
 
 const watcher = (state) => onChange(state, (path, value) => {
   switch (path) {
@@ -26,17 +26,6 @@ const watcher = (state) => onChange(state, (path, value) => {
   }
 });
 
-yup.addMethod(yup.string, 'myValidator', function myValidator(state) {
-  return this.test('RSS уже существует', (currentURL) => {
-    const urls = state.repliesURLs.map(({ urlFeed }) => urlFeed);
-    return urls.includes(currentURL) ? false : currentURL;
-  });
-});
-
-const schema = (state) => yup.object().shape({
-  url: yup.string().url().required('not Empty').myValidator(state),
-});
-
 const app = (state) => {
   document.body.replaceChildren(renderModal(), renderComponent(state));
 
@@ -53,13 +42,16 @@ const app = (state) => {
 
   const input = document.getElementById('url-input');
   input.addEventListener('change', ({ target: { value } }) => {
-    schema(state).validate({ url: value }, { abortEarly: false })
-      .then((result) => {
-        state.request = { status: true, errors: '' };
-        watchedState.request.url = `${result.url}`;
+    const urls = state.repliesURLs.map(({ urlFeed }) => urlFeed);
+    const schema = yup.object()
+      .shape({ url: yup.string().url().required('not Empty').notOneOf(urls, 'already exists') });
+
+    schema.validate({ url: value }, { abortEarly: true })
+      .then((context) => {
+        watchedState.request.url = `${context.url}`;
       })
       .catch((e) => {
-        state.request = { status: false };
+        state.request.url = null;
         watchedState.request.errors = e.message;
       });
   });
@@ -67,7 +59,7 @@ const app = (state) => {
   const form = document.querySelector('form');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (state.request.status) {
+    if (state.request.url) {
       state.count += 1;
       request(state, state.count, true);
     }

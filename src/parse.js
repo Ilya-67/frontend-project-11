@@ -13,6 +13,7 @@ export default (state, url, idFeed, responseDocs, newFeed = false) => {
 
     const urlFeed = { id: idFeed, urlFeed: url };
     state.repliesURLs = [...state.repliesURLs, urlFeed];
+    state.feedBackMessage = 'loaded';
   } else {
     clearTimeout(state.feeds[idFeed].timer);
   }

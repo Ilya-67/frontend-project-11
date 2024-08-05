@@ -11,7 +11,6 @@ const watcher = (state) => onChange(state, (path, value) => {
       break;
     case 'response.status':
       state.response.status = '';
-      state.feedBackMessage = value;
       render(state);
       break;
     default:

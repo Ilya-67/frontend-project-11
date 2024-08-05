@@ -1,8 +1,8 @@
 import './styles.scss';
 import 'bootstrap';
-import i18next from 'i18next';
-import app from './app.js';
-import resourcesLng from './locales/resources.js';
+import i18n from 'i18next';
+import app from './app';
+import resourcesLng from './locales/resources';
 
 const runApp = () => {
   const state = {
@@ -22,7 +22,7 @@ const runApp = () => {
     },
   };
 
-  i18next.init({
+  i18n.init({
     lng: 'ru',
     resources: resourcesLng,
   });

@@ -1,5 +1,5 @@
-import translation from './translation';
-
-const { en, cz, ru } = translation;
+import ru from './ru';
+import en from './en';
+import cz from './cz';
 
 export default { en, cz, ru };

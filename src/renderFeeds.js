@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from 'i18next';
 
 export default (state) => {
   const { feeds } = state;
@@ -6,7 +6,7 @@ export default (state) => {
   divContainer.classList.add('row');
   const cardTitle = document.createElement('h2');
   cardTitle.classList.add('card-title', 'h4');
-  cardTitle.textContent = i18next.t('feeds');
+  cardTitle.textContent = i18n.t('feeds');
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
   cardBody.appendChild(cardTitle);
@@ -18,7 +18,7 @@ export default (state) => {
   const divCardPosts = divCard.cloneNode(false);
   const cardBodyPosts = cardBody.cloneNode(false);
   const cardTitlePosts = cardTitle.cloneNode(false);
-  cardTitlePosts.textContent = i18next.t('posts');
+  cardTitlePosts.textContent = i18n.t('posts');
   const ulCardPosts = document.createElement('ul');
   ulCardPosts.classList.add('list-group', 'border-0', 'rounded-0');
   cardBodyPosts.append(cardTitlePosts);
@@ -47,7 +47,7 @@ export default (state) => {
     buttonClouseFeed.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
     buttonClouseFeed.dataset.id = id;
     buttonClouseFeed.dataset.action = 'deleteFeed';
-    buttonClouseFeed.textContent = i18next.t('delete');
+    buttonClouseFeed.textContent = i18n.t('delete');
     const divLi = document.createElement('div');
     divLi.append(liTitle, liDescription);
     liCard.append(divLi, buttonClouseFeed);
@@ -71,12 +71,13 @@ export default (state) => {
       aPost.textContent = title.text;
       aPost.href = link;
       aPost.dataset.id = ids;
+      aPost.dataset.action = 'openPost';
       const buttonOpen = buttonClouseFeed.cloneNode(false);
       buttonOpen.classList.replace('btn-outline-secondary', 'btn-outline-primary');
       buttonOpen.dataset.bsToggle = 'modal';
       buttonOpen.dataset.bsTarget = '#modal';
       buttonOpen.dataset.action = 'openPost';
-      buttonOpen.textContent = i18next.t('open');
+      buttonOpen.textContent = i18n.t('open');
       buttonOpen.dataset.id = ids;
       liPost.append(aPost, buttonOpen);
     });

@@ -1,4 +1,4 @@
-import i18next from 'i18next';
+import i18n from 'i18next';
 import renderFeeds from './renderFeeds';
 
 const deleteFeed = (state, id) => {
@@ -36,7 +36,7 @@ const render = (state) => {
   const [classOld, classNew] = (feedBackMessage === 'loaded')
     ? ['text-danger', 'text-success'] : ['text-success', 'text-danger'];
   pFeedBack.classList.replace(classOld, classNew);
-  pFeedBack.textContent = i18next.t(`${feedBackMessage}`);
+  pFeedBack.textContent = i18n.t(`${feedBackMessage}`);
   const section = document.getElementById('container-xxl');
   if (repliesURLs.length > 0) {
     section.replaceChildren(renderFeeds(state));
@@ -49,10 +49,25 @@ const render = (state) => {
       const { action, id } = e.target.dataset;
       if (action === 'deleteFeed') {
         deleteFeed(state, id);
-        render(state);
       } else if (action === 'openPost') {
         openPost(state, id);
       }
+      render(state);
+    });
+  });
+  const aElements = document.querySelectorAll('a');
+  const postsTitle = [];
+  aElements.forEach((i) => {
+    if (i.dataset.action === 'openPost') {
+      postsTitle.push(i);
+    }
+    return postsTitle;
+  });
+  postsTitle.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      const { id } = e.target.dataset;
+      openPost(state, id);
+      render(state);
     });
   });
 };
