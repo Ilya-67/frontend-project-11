@@ -42,7 +42,8 @@ const render = (state) => {
   section.replaceChildren(children);
 
   const buttons = document.querySelectorAll('button');
-  buttons.forEach((button) => {
+  const aElements = document.querySelectorAll('a');
+  [...buttons, ...aElements].forEach((button) => {
     button.addEventListener('click', (e) => {
       const { action, id } = e.target.dataset;
       if (action === 'deleteFeed') {
@@ -50,14 +51,6 @@ const render = (state) => {
       } else if (action === 'openPost') {
         openPost(state, id);
       }
-      render(state);
-    });
-  });
-
-  const aElements = document.querySelectorAll('a');
-  aElements.forEach((item) => {
-    item.addEventListener('click', ({ target }) => {
-      openPost(state, target.dataset.id);
       render(state);
     });
   });
