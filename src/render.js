@@ -38,14 +38,12 @@ const render = (state) => {
   pFeedBack.classList.replace(classOld, classNew);
   pFeedBack.textContent = i18n.t(`${feedBackMessage}`);
   const section = document.getElementById('container-xxl');
-  if (repliesURLs.length > 0) {
-    section.replaceChildren(renderFeeds(state));
-  } else {
-    section.innerHTML = '';
-  }
+  const children = repliesURLs.length > 0 ? renderFeeds(state) : '';
+  section.replaceChildren(children);
+
   const buttons = document.querySelectorAll('button');
-  buttons.forEach((elButton) => {
-    elButton.addEventListener('click', (e) => {
+  buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
       const { action, id } = e.target.dataset;
       if (action === 'deleteFeed') {
         deleteFeed(state, id);
@@ -55,18 +53,11 @@ const render = (state) => {
       render(state);
     });
   });
+
   const aElements = document.querySelectorAll('a');
-  const postsTitle = [];
-  aElements.forEach((i) => {
-    if (i.dataset.action === 'openPost') {
-      postsTitle.push(i);
-    }
-    return postsTitle;
-  });
-  postsTitle.forEach((item) => {
-    item.addEventListener('click', (e) => {
-      const { id } = e.target.dataset;
-      openPost(state, id);
+  aElements.forEach((item) => {
+    item.addEventListener('click', ({ target }) => {
+      openPost(state, target.dataset.id);
       render(state);
     });
   });

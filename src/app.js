@@ -14,6 +14,7 @@ const watcher = (state) => onChange(state, (path, value) => {
       });
       break;
     case 'request.errors':
+      state.request.url = null;
       state.feedBackMessage = value;
       render(state);
       break;
@@ -26,14 +27,16 @@ const watcher = (state) => onChange(state, (path, value) => {
   }
 });
 
+const schema = (urls) => yup.object()
+  .shape({ url: yup.string().url().required('not Empty').notOneOf(urls, 'already exists') });
+
 const app = (state) => {
   document.body.replaceChildren(renderModal(), renderComponent(state));
 
   const watchedState = watcher(state);
 
   const handleSwitchLanguage = (wState) => (evt) => {
-    const { lng } = evt.target.dataset;
-    wState.lng = lng;
+    wState.lng = evt.target.dataset.lng;
     app(state);
   };
 
@@ -43,17 +46,9 @@ const app = (state) => {
   const input = document.getElementById('url-input');
   input.addEventListener('change', ({ target: { value } }) => {
     const urls = state.repliesURLs.map(({ urlFeed }) => urlFeed);
-    const schema = yup.object()
-      .shape({ url: yup.string().url().required('not Empty').notOneOf(urls, 'already exists') });
-
-    schema.validate({ url: value }, { abortEarly: true })
-      .then((context) => {
-        watchedState.request.url = `${context.url}`;
-      })
-      .catch((e) => {
-        state.request.url = null;
-        watchedState.request.errors = e.message;
-      });
+    schema(urls).validate({ url: value }, { abortEarly: true })
+      .then((context) => { watchedState.request.url = `${context.url}`; })
+      .catch((e) => { watchedState.request.errors = e.message; });
   });
 
   const form = document.querySelector('form');
